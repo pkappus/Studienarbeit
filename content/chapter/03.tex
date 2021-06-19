@@ -1,2 +1,9 @@
 \chapter{Daten Akquisition}
 \label{chap:akquisition}
+Jeder Nutzer der die Dienste von Twitter bentuzen will, kann dies nur nach Bestätigung der allgemeinen Geschäftsbedingung tun. Damit erteilt ein Nutzer Twitter die Erlaubnis "`Ihre Inhalte weltweit verfügbar zu machen und dies auch Dritten zu ermöglichen"'\footfullcite[][Absatz 3]{twitter-agb}
+Diese Bedingung bietet Twitter die Möglichkeit veröffentliche Tweets für Dritte (Unternehmen, Organisationen oder Einzelpersonen) über eine API bereitzustellen und zu verkaufen.\\
+
+
+Tweets die in der Vergangheit veröffentlicht wurden, können über die sogenannte "`Search API"' angefordert werden. Um die Suche einzugrenzen kann die Sprache der Tweets und im Text vorkommende Wörter sowie ein Zeitraum definiert werden. 
+Konstenlos stellt Twitter die Daten der letzten 7 Tage zur Verfügung; das dafür  genutzt wurde eine Größenabschätzung der Anzahl an Tweets zu erhalten die täglich zur Thema der Covid-19 Pandemie veröffentlicht werden. Mit folgender Anfrage wurde ein Datensatz von 63.126 
+\url{api.twitter.com/1.1/search/tweets.json?q=Corona%20Covid%20until:2020-10-04%20since:2020-10-03&lang=de}
