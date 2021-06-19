@@ -8,7 +8,8 @@ Tweets die in der Vergangheit veröffentlicht wurden, können über die sogenann
 Konstenlos stellt Twitter die Daten der letzten 7 Tage zur Verfügung; durch eine Hochrechnung wurde das genutzt um eine Größenabschätzung der Anzahl an Tweets zu erhalten die monatlich zur Thema der Covid-19 Pandemie veröffentlicht werden.
 So konnte auf Anzahl von \textit{ca. 1.500.000} Tweets geschlossen werden. 
 Um diese Methode in die Vergangheit zu erweitern bedarf es den sogenannten "`Full-Archive"' - Zugriff der Twitter API, der 1899\$ für 1.250.000 Tweets pro Monat kosten. Mit dem verfügbaren Budget der Arbeit war dies nicht zu realisieren.\\ \newline
-Neben dem Zugriff auf in der Vergangheit veröffentlichte Tweets, bietet Twitter Entwicklern außerdem die Möglichkeit in Echtzeit jeden Tweet zu erhalten, der vom Entwickler definierten Kriterien erfüllt. 
+Neben dem Zugriff auf in der Vergangheit veröffentlichte Tweets, bietet Twitter Entwicklern außerdem die Möglichkeit in Echtzeit jeden Tweet zu erhalten, der vom Entwickler definierten Kriterien erfüllt.
+Dieser Dienst steht konstenlos zur Verfügung.
 Es wurde sich auf den sogenannte "`Filtered Stream"' mit den Kritieren: 1. Ein Tweet soll das Schlagwort "`Corona"' oder "`Covid"' (und damit auch "`Covid-19"') und 2. Der Tweet muss in deutscher Sprache verfasst sein, registiert um kontinuierlich jeden Tweet zu erhalten, der mit diesen Kriterien veröffentlich wurde. \\
 Die gesammelten Tweets sollen nun in einer Datenbank gesichert werden. 
 Für die Implementierung wurde \ac{AWS}  genutzt. Eine \gls{EC2 - Instanz} ist für die Registeriung an der Twitter API und das Weiterleiten der Tweets verantwortlich. Als Speichermedium wurden \glspl{S3 - Bucket} verwendet. Um bei einem erhöhten Datenaufkommen keine Daten zu verlieren wurde zwischen die \gls{EC2 - Instanz} und den \glspl{S3 - Bucket} ein \gls{Amazon Kinesis Data Firehose} geschaltet, der sich durch eine hohe Datenaufnahme kennzeichnet. 
@@ -36,8 +37,9 @@ Ein Tweet ist ein \ac{JSON} - Objekt, dass folgende, für die Arbeit relevanten,
 		\item Eine eindeutige Nummer die diesen Nutzer identifiziert
 		\item Seine gewählter Nutzername
 	\end{itemize}
+	\item Ist ein Tweet ein \gls{Retweet}, so enthält dieser das komplette Tweet-Objekt des Original-Tweet.
 \end{enumerate}
 
-Ist ein Tweet ein \gls{Retweet}, so enthält dieser das komplette Tweet-Objekt des Original-Tweet.
+
 
  

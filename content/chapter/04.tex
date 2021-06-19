@@ -1,2 +1,17 @@
 \chapter{Sentimentanalyse}
 \label{chap:sentiment}
+Die Sentimentanalyse ist ein Teilgebiet des \gls{Text Mining} und beinhaltet die Klassifizierung von Aussagen und Meinungen in Texten in Kategorien wie z.B. "`positiv"'' und "`negativ"'\footfullcite[][S. 113]{python-sm-analysis}. Wie in Abschnitt \ref{sec:hypothesen} beschrieben, soll der Versuch unternommen werden, die gesammelten Tweets auf ihre Meinung mittels Sentimentanalyse zu untersuchen und daraufhin in Gruppen mit gleichen Werten zu klassifiezieren. 
+\section{Technologieauswahl}
+Sentimentanalyse ist ein komplexer Vorgang, der Technologien aus dem Gebiet des \ac{NLP}, der Computerlinguistik und der Biometrik beinhaltet, weshalb hier auf schon existente Systeme zurückgegriffen wurde.
+Bestehende Tool unterscheiden sich in Qualität der Analyse, Differenzierung der Einteilung (können einzelne Emotion extrahiert werden?) und Preis. 
+Mit einer Datenbasis von ca. 10.000.000 Texten fallen alle kostenpflichtigen System aufgrund des begrenzten Budget aus, weshalb  die \gls{OpenSource} Systeme "`TextBlob"' und "`NLTK - Vader"' verwendet wurden. Damit kann jedem Tweet folgende drei Werte zugehört werden.
+\begin{enumerate}
+	\item $NLTK - Polarität \in [-1;1]$\\ Ein Maß für die Stimmung des analysierten Textes\\ wobei $-1\,\hat{=}\,max.\,negativ,\,1\,\hat{=} \,max.\,positiv$ 
+	\item $TextBlob - Polarität \in [-1;1]$
+	\item $TextBlob - Subjekivität \in [0;1]$\\ Ein Maß für die Objektivität des analysierten Textes\\ wobei $0\,\hat{=}\,max.\,objektiv,\,1\,\hat{=} \,max.\,subjektiv$ 
+\end{enumerate}
+
+Beide Systeme sind optimiert für englische Texte; bedeutet, alle gesammelten Tweets müssen vor der Analyse übersetzt werden. Im Bereich der maschinellen Übersetzung steigern sich die Kosten der Prozessierung der Datenbasis über das Budget weshalb eine Übersetzung aller Tweets nicht möglich war.
+Allerdings konnten Tweets von 4 Tagen (01 - 04 März 2021) übersetzt und analysiert werden.
+
+\section{Analyse}
