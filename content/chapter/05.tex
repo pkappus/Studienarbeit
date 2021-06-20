@@ -1,6 +1,7 @@
 \chapter{Clustering Retweets}
 \label{chap:cluster_retweets}
-Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern aufgebaut und anschließend auf enthaltenen Gruppierungen untersucht werden. Im Folgenden soll diese Methode dargestellt und die Ergebnisse präsentiert werden.
+Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern aufgebaut werden.
+Werden in diesem Netz Nutzer*innen identifiziert, die sich häufig untereinander \glspl{retweetet} so können diese einer Gruppe zugeordnet werden. Im Folgenden soll der Prozess solche Gruppen zu finden dargestellt und die Ergebnisse präsentiert werden.
 
 \section{Daten vorbereiten}
 \label{sec:daten-vorbereiten}
@@ -99,7 +100,7 @@ Knoten beschränken (mit $S$ der Menge aller möglichen Superknoten).
 \end{figure}
 Abbildung \ref{fig:graphnothreshold} zeigt den selben Graph wie \ref{fig:graphnoaggregation} mit zu Superknoten aggregierten Nutzern.
 Die Berechnung des Layout konnte dadurch auf 0.16 Sekunden reduziert werden.
-
+Auch dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n)$ mit $n$ = Gesamtanzahl an Nutzern. 
 \section{Kanten filtern}
 Wie in Abbildung \ref{fig:superknotenentwicklung} zu sehen, steigt die Anzahl an möglichen Superknoten sehr schnell mit steigender Zahl an Hauptfiguren.
 \begin{figure}[h]
@@ -108,7 +109,27 @@ Wie in Abbildung \ref{fig:superknotenentwicklung} zu sehen, steigt die Anzahl an
 	\caption[]{Entwicklung der möglichen Superknoten mit der Anzahl an Hauptfiguren}
 	\label{fig:superknotenentwicklung}
 \end{figure}
-Bei $|H| = 100$ könnten bis zu $1.26*10^{30}$ Superknoten existieren. 
+Bei $|H| = 100$ könnten bis zu $1.26*10^{30}$ Superknoten existieren. Das ist für jegliche Berechnung oder Darstellung unpraktikabel.
+Deshalb wird auch hier eine Komplexitätsverringerung durch Filtern unrelevanter Information vorgenommen indem alle Kanten von einem Superknoten zu einer Hauptfigur gelöscht werden, die unter einem Schwellwert liegen. 
+Es wird davon ausgegangen, dass  bei einem niedrigen Kantengewicht die Nutzer*innen nur eine schwache Beziehung zu dem entsprechenden Hauptakteur haben und diese damit für eine spätere Gruppierung irrelavant ist. 
+Wie dieser Schwellenwert festgelegt wird, wird in Abschnitt diskutiert. 
+Es gilt also mit dem Schwellwert $T$: \begin{equation}
+	E_{gefiltert} = \{(s,h,g)\in E|g>T\}
+\end{equation}
+
+Wurde eine Kante (z.B. $(s,h3)$) von einem Superknoten $s_{h^1h^2h^3}$ gelöscht, so ändert sich dieser zu $s_{h^1h^2}$. Nun ist es allerdings möglich, dass der Knoten $s_{h^1h^2}$ bereits existiert, was zu einer Verdopplung der eigentlich gleichen Kante führt. Dies kann vermieden werden indem nach dem Löschen einer Kante überprüft wird ob der so enstandene Superknoten bereits existiert. Falls ja, werden diese zusammengeführt indem die jeweiligen Kantengewichte addiert werden.
+Des Weiteren werden diejenigen Superknoten geschlöscht, die Nutzer repräsentierten, die nur eine Hauptfigur \gls{geretweetet} haben, da sie für eine Eingruppierung anhand von Beziehung keine Relevanz haben.
+Dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n^2)$ mit $n$ = Gesamtanzahl der Superknoten, da im schlechtesten Fall für jeden veränderten Knoten, dieser mit alle bereits bestehenden Knoten auf Gleichheit überprüft werden muss.
+\section{Clustering}
+Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (ca. 2,5 Millionen Tweets, 260.000 Nutzer), 100 Hauptfiguren und einem Schwellenwert von 61 ist in Abbildung \ref{fig:noclusters} zu sehen und wurde innerhalb von 2 Stunden und 58 Minuten berechnet. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{images/NoClusters}
+	\caption[]{Ergebnisgraph März 2021}
+	\label{fig:noclusters}
+\end{figure}
+
+
 
 
 
