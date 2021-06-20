@@ -89,7 +89,7 @@ s_{h^n\,..\,h^m} = \{n\in N|\exists e(n,h^n\,..\,h^m)\in E\}
 Die Gewichte $g$ der Kanten werden aufaddiert. 
 Damit lässt sich der Graph auf maximal
 \begin{equation}
-|K| = |S| + |H| = \sum_{n=1}^{|H|} \binom{|H|}{n} + |H|
+|K| = |S| + |H| = \sum_{n=1}^{|H|} \binom{|H|}{n} + |H| = 2^{|H|} - 1 + |H|
 \end{equation}
 Knoten beschränken (mit $S$ der Menge aller möglichen Superknoten).
 \begin{figure}[h]
@@ -102,7 +102,8 @@ Abbildung \ref{fig:graphnothreshold} zeigt den selben Graph wie \ref{fig:graphno
 Die Berechnung des Layout konnte dadurch auf 0.16 Sekunden reduziert werden.
 Auch dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n)$ mit $n$ = Gesamtanzahl an Nutzern. 
 \section{Kanten filtern}
-Wie in Abbildung \ref{fig:superknotenentwicklung} zu sehen, steigt die Anzahl an möglichen Superknoten sehr schnell mit steigender Zahl an Hauptfiguren.
+\label{sec:kanten-filtern}
+Wie in Formel 5.2 und Abbildung \ref{fig:superknotenentwicklung} zu sehen, steigt die Anzahl an möglichen Superknoten expotentiell mit steigender Zahl an Hauptfiguren.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/Superknotenentwicklung}
@@ -128,6 +129,46 @@ Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (ca. 
 	\caption[]{Ergebnisgraph März 2021}
 	\label{fig:noclusters}
 \end{figure}
+Als Mensch kann man ein  großes zentrales \gls{Cluster}, eins das mit diesem verbunden ist (unten) und ein seperates \gls{Cluster} (oben links) erkennen. 
+Im Folgenden wird dargelegt, wie diese \gls{Cluster} automatisch erkannt werden.
+Zu einem \gls{Cluster} können in diesem Kontext alle Knoten gezählt werden, die dicht miteinander verbunden ist; das heißt sie stehen über einige weitere Knoten in Beziehnung.
+Da eine Anzahl an \gls{Cluster} vorher nicht festgelegt werden kann und es kein geometrischen Raum gibt (nur die Verbindungen zählen, die Positionen der Punkte irrelevant) wurde sich hier für eine abgewandelte Form des DBSCAN - Algorithmus entschieden (siehe \footfullcite{dbscan}).
+Als Knoten werden nur die Hauptfiguren betrachtet da die Superknoten nur die Verbindung zu weiteren Hauptfiguren darstellen. 
+Die Nachbar einer Hauptfigur sind alle Hauptfiguren die mit der Ausgangshauptfigur über ein Superknoten verbunden sind (siehe Abbildung \ref{fig:dbscan-neighbours})
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/DBSCAN-neighbours}
+	\caption[]{Nachbarn einer Hauptfigur über verbundene Superknoten}
+	\label{fig:dbscan-neighbours}
+\end{figure}
+Eine Mindestdistanz $\epsilon$ wird nicht benötigt, da alle Verbindungen die dadurch nicht gezählt würden, bereits durch den in Abschnitt \ref{sec:kanten-filtern} definierten Schwellwert aussortiert wurden.
+Da mit diesem Ansatz jede Verbindung zu einer weiteren Hauptfigur als Nachbar in den DBSCAN eingeht, werden \gls{Cluster} die nur leicht verbunden sind (wie in Abbildung \ref{fig:noclusters} das Zentrale und das unten Positionierte) als ein \gls{Cluster} definiert. 
+Um hier eine Trennung zu schaffen, werden nur Knoten als Nachbarn gezählt die noch nicht dem aktuellen \gls{Cluster} zugeordnet wurden wie in Listing \ref{lst:neighborfunction}.
+\begin{lstlisting}[language=Python,caption={Abwandlung der DBSCAN Nachbarfunktion},label={lst:neighborfunction}]
+	def getNeighbors(node):
+		all_neighbors = []
+		supernodes = G.neighbors(node_name)
+		for supernode in supernodes:
+			real_neighbors = G.neighbors(supernode)
+			for real_neigbor in real_neighbors:
+				#Dieser Knoten wurde schon erreicht oder ist schon im aktuellen Cluster
+				if(real_neigbor in cluster_nodes or neighbor_name in all_neighbors):
+					continue
+			all_neighbors.append(real_neighbor)
+		return all_neighbors
+\end{lstlisting}
+Die Mindestanzahl an Nachbar damit ein Knoten zum Kernknoten wird, ist wählbar, allerdings hat sich ein Wert von 2 bewährt. Diese Wahl wird in Abschnitt diskutiert.
+Auf den oben vorgestellten Datensatz angewendet, braucht das Berechnen der \gls{Cluster} 2,3 Minuten und liefert das in Abbildung \ref{fig:clustersscreenshot} dargestellte Ergebnis.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth]{images/Clusters_screenshot}
+	\caption[]{Graph mit Markierungen um die gefundenen \gls{Cluster}}
+	\label{fig:clustersscreenshot}
+\end{figure}
+
+\section{Einblick in die Cluster}
+
+
 
 
 
