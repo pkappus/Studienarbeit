@@ -1,26 +1,27 @@
 \chapter{Einleitung}
+\markright{\thechapter \,\,\currentname \, - Paul Groß  \& Philipp Kappus}
 \label{chap:einleitung}
 Twitter mit seinen 192 Millionen täglich aktiven (monetarisierbaren) Nutzern \cite{twitter-mdau}, die ihre Ansichten und Meinungen in kurzen Texten zum Ausdruck bringen, stellt eine beliebte Basis für Datenanalysten dar, die das Interesse von Menschen an Themen oder Produkten analysieren, Persönlichkeitsstudien durchführen, Menschen gruppieren und sogar Grippeausbrüche vorhersagen \cite{Achrekar2011}.
-Insbesodere die Aufgabe, Tweets oder Benutzer in Gruppen zu gruppieren, hat großes Interesse bei Wissenschaftler gefunden, darunter \cite{Friedemann2015C} die Kunden für gezielte Werbung  clustert, \cite{Ifrim2014}  der wichtige Ereignisse durch eine hierarchische Clusterung unter Verwendung einer paarweisen Cosinus-Distanz erkennt oder \cite{Miyamoto2021} der Tweets nach Hashtags mit dem K-Means-Algorithmus, agglomerativem hierarchischem Clustering und einem Fuzzy-Nachbarschaftsmodell gruppiert.
+Insbesondere die Aufgabe, Tweets oder Benutzer in Gruppen zu sortieren, hat großes Interesse bei Wissenschaftler erweckt, darunter \cite{Friedemann2015C} die Kunden für gezielte Werbung  clustert, \cite{Ifrim2014}  der wichtige Ereignisse durch eine hierarchische Clusterung unter Verwendung einer paarweisen Cosinus-Distanz erkennt oder \cite{Miyamoto2021} der Tweets nach Hashtags mit dem K-Means-Algorithmus, agglomerativem hierarchischem Clustering und einem Fuzzy-Nachbarschaftsmodell gruppiert.
 \cite{Conover2011-2} hat einen Klassifikator entwickelt, der Benutzer in politisch-links und politisch-rechts gruppiert, indem ein Netzwerk von Referenzbenutzern basierend auf Retweets (und Erwähnungen) aufgebaut wurde und dann jeder Gruppe Schlüsselwörter zugewiesen werden, die aus den Tweets der Referenzbenutzern extrahiert wurden.
-Ziel dieser Arbeit, ist es differenziertere Cluster unter den Menschen finden, die über ein bestimmtes Thema sprechen.
-An \cite{Kharde2016} angelehnt war die anfängliche Idee, Cluter anhand einer Sentimentanalyse der Tweets zu finden. Diese liefert für einen Text eine Einschätzung ob dieser eine eher positiv oder eher negative Haltung darstellt.
+Diese Idee erweiternd ist das Ziel dieser Arbeit, differenziertere Cluster unter den Menschen zu finden, die über ein bestimmtes Thema sprechen.
+An \cite{Kharde2016} angelehnt war die anfängliche Idee, Cluster anhand einer Sentimentanalyse der Tweets zu finden. Diese liefert für einen Text eine Einschätzung ob dieser eine eher positiv oder eher negative Haltung ausdrückt.
 Im Zuge der Datenanalyse stellte sich allerdings heraus, dass dieser Ansatz nicht zielführend ist.
 Parallel dazu wurden zwei weitere Clusteringmethoden entworfen. 
-Die erste Methode baut ein Kommunikationsnetzwerk auf, das auf Beziehungen zwischen Benutzern basiert, bei denen einer den anderen retweetet. Durch intelligente Filterung kann dann der DBSCAN-Algorithmus verwendet werden, um Cluster zu erkennen.
+Die erste Methode baut ein Kommunikationsnetzwerk auf, das auf Beziehungen zwischen Benutzern basiert, bei denen einer den anderen retweetet. Durch intelligente Filterung kann dann der DBSCAN-Algorithmus verwendet werden, um Cluster zu erkennen.\\‚
 Basierend auf dem in \cite{Godfrey2014} evaluierten Verfahren, clustert der zweite Ansatz Benutzer mit einer Kombination aus k-Means und DBSCAN anhand ihrer am häufigsten verwendeten Schlüsselwörtern und Hashtags.\\
-In den Jahren 2020 und 2021 polarisierte die Covid-19-Pandemie und die daraus resultierenden gesetzlichen Regelungen die Gesellschaft und führten zu einer großen Diskussion, die die sozialen Netzwerke einschließlich Twitter dominierte (meist verwendeter Hashtag in Deutschland des Jahres 2020: "corona" \cite{top-hashtags-de}).
+In den Jahren 2020 und 2021 polarisierte die Covid-19-Pandemie und die daraus resultierenden gesetzlichen Regelungen die Gesellschaft und führten zu einer großen Diskussion, die die sozialen Netzwerke einschließlich Twitter dominierte (meist verwendeter Hashtag in Deutschland des Jahres 2020: "corona"  \cite{top-hashtags-de}).
 In Deutschland erlangten die sogenannten „Querdenker“ bundesweite Aufmerksamkeit, indem sie Proteste gegen Covid-19-bezogene Regelungen organisierten, die Existenz des Virus teilweise leugneten und verschiedene andere Verschwörungstheorien auf Twitter verbreiteten.
-Die Identifizierung solcher Gruppen kann von großem Interesse sein, um die Verbreitung von Fake News zu verhindern und einen Überblick über verschiedene Meinungs-„Lager“ zu gewinnen, was Covid-19 zum perfekten Thema für die Anwendung der Clustering-Ansätze macht.
+Die Identifizierung solcher Gruppen kann von großem Interesse sein um die Verbreitung von Fake News zu verhindern und einen Überblick über verschiedene Meinungs-„Lager“ zu gewinnen. Als das macht Covid-19 zum perfekten Thema für die Anwendung der Clustering-Ansätze.
 Ergebnisse beider Methoden können unter \url{https://andfaxle.github.io/twitteranalysis/} eingesehen werden.
-
 \section{Fragestellung}
 \label{sec:fragestellung}
 Ein Bericht der Online Civil Courage Initiative stellt dar, wie Online-Hass zur gesellschaftlicher Polarisierung und extremistischer Radikalisierung beitragen kann.
-Ein Beitrag dazu leistet auch sogenannte "`Echokammern"' in denen Menschen vorrangig mit Informationen und Meinungen konfrontiert sind, die den eigenen Einstellungen und Sichtweisen entsprechen. \cite{hassrede} In dieser Arbeit soll die Frage beantwortet werden, inweit solche "`Echokammer"' wissenschaftlich exakt aus dem chaotischen Datensatz der Covid-19 Pandemie von Twitter extrahiert werden können. D.h.:\\
-Lassen sich Gruppen von Nutzer*innen finden, die 1) die gleiche Meinung zur Covid-19 Pandemie haben, 2) Diese Meinung mit dem selben Sentiment kundtun, 3) diese Meinung mit der gleichen Sprache kommunizieren und 4) Informationen nur aus ihrer assozierten Gruppe erhalten.
-Können Gruppierung von Menschen gefunden die 
+Ein Beitrag dazu leisten auch sogenannte "`Echokammern"' in denen Menschen vorrangig mit Informationen und Meinungen konfrontiert sind, die den eigenen Einstellungen und Sichtweisen entsprechen. \cite{hassrede} In dieser Arbeit soll die Frage beantwortet werden, inweit solche "`Echokammer"' wissenschaftlich exakt aus dem chaotischen Datensatz der Covid-19 Pandemie von Twitter extrahiert werden können. D.h.:\\
+Lassen sich Gruppen von Nutzer*innen finden, die 1) die gleiche Meinung zur Covid-19 Pandemie haben, 2) diese Meinung mit dem selben Sentiment kundtun, 3) diese Meinung mit der gleichen Sprache kommunizieren und 4) Informationen nur aus ihrer assozierten Gruppe erhalten.
 \section{Umfeld}
 \label{sec:umfeld}
+Die Arbeit wurde aks Studienarbeit and der Dualen Hochschule Baden-Württemberg (DHBW) Ravensburg am Campus Friedrichshafen geschrieben. Die DHBW bietet das duale Studium an, das Studierenden die Integrierung von Praxisphasen bei einem Partnerunternehmen ermöglicht. Von den ingesamt 3700 Studenten, befinden sich 1500 am Campus Friedrichshafen an der Fakultät Technik.
+Diese Arbeit wurde ohne Unterstützung des Partnerunternehmens geschrieben.
 \section{Theoretische Grundlagen}
 \label{sec:grundlagen}

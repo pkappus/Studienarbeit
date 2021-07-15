@@ -1,6 +1,19 @@
 \chapter{Auswertung}
+\markright{\thechapter \,\,\currentname \, - Paul Groß  \& Philipp Kappus}
 \label{chap:auswertung}
-\section{Ergebnisse}
-\label{sec:ergebnisse}
-\section{Interpretation}
+Rückblickend auf die 4 Fragestellungen aus \ref{sec:fragestellung} soll nun diskussiert werden, inwieweit die Ergebnisse der Arbeit die Fragen beantworten. 
+Lassen sich Gruppen von Nutzer*innen finden, die 1) die gleiche Meinung zur Covid-19 Pandemie haben, 2) diese Meinung mit dem selben Sentiment kundtun, 3) diese Meinung mit der gleichen Sprache kommunizieren und 4) Informationen nur aus ihrer assozierten Gruppe erhalten ? \\\\
+Frage 2) konnte aufgrund von Budget- und Qualitätsbeschränkungen in dieser Arbeit nicht beantwortet werden.
+\section{Ergebnisinterpretation des Retweetclustering}
+\ref{sec:ergebnis-retweet}
+Mithilfe dieser Methode konnten 3 Gruppierung gefunden  werden, die Informationen (Retweets) nur innerhalb dieser Gruppe teilen und liefert damit eine Teilantwort auf Frage 4). Da es sich allerdings nur um die Retweets eines Nutzer handelt  und keine Aussage gemacht wird, ob diese Nutzer eventuell anderen Influencern folgt (und damit auch dessen Informationen erhält) ist der eindeutige Schluss auf eine "`Echokammer"' nicht gegeben.
+Außerdem, ist in weiterführenden Arbeiten zu untersuchen, inwieweit ein Retweet tatsächlich eine Meinungszuordnung zur Folge haben kann.
+Beispielsweise könnte ein Nutzer einen Influencer mit zu ihm gegensätzlicher Meinung retweeten, nur um diesen Gegensatz aufzuzeigen. Eine Einteilung in das gleiche Meinungscluster wäre hier falsch.
+Ein solcher Fall wird bei einem Nutzer allerdings nur vereinzelt auftreten; man könnte diesen mit einem Threshold auf Nutzerebene aussortiert. Da ein Threshold allerdings nur auf Supernutzerebene angewendete wird und hier die Retweets aller Nutzer schon aufsummiert wurden, sind solche Nutzer in den Cluster trotzdem enthalten. 
+Allerdings kann vor Allem die Gruppierung zweier Influencern in ein gleicher Cluster als Meinungsgleichheit angesehen werden. Frage 1) konnte aus dieser Perspektive also mithilfe des Retweetansatzes positiv beantwortet werden.
+
+\section{Ergebnisinterpretation des Keywordclustering}
+Diese Methode lieferte 23 Gruppierung von Nutzern die in der Gesamtheit ihrer Tweets dieselbe Schlagwörter verwenden und damit die selbe "`Sprache"' sprechen. Das heißt, Frage 2) konnte positiv beantwortet werden. Auch gilt es  ein ähnliches Problem zu diskutieren wie im Retweetclustering.
+Für einen Nutzer der z.B. ein Schlagwort einer im gegensätzlichen Meinung verwendet um diesen Gegensatz aufzuzeigen wäre eine entsprechende Meinungszuordnung falsch.
+Im Gegensatz zu \ref{sec:ergebnis-retweet} werden diese vereinzelten Fälle allerdings schon auf Nutzerebene aussortiert
 \label{sec:interpretation}
