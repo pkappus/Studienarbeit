@@ -4,6 +4,8 @@
 Rückblickend auf die 4 Fragestellungen aus \ref{sec:fragestellung} soll nun diskussiert werden, inwieweit die Ergebnisse der Arbeit die Fragen beantworten. 
 Lassen sich Gruppen von Nutzer*innen finden, die 1) die gleiche Meinung zur Covid-19 Pandemie haben, 2) diese Meinung mit dem selben Sentiment kundtun, 3) diese Meinung mit der gleichen Sprache kommunizieren und 4) Informationen nur aus ihrer assozierten Gruppe erhalten ? \\\\
 Frage 2) konnte aufgrund von Budget- und Qualitätsbeschränkungen in dieser Arbeit nicht beantwortet werden.
+Im Folgenden soll eine Interpretation der Ergebnisse der beiden durchgeführten Clusteringmethode vorgestellt werden.
+Aus dem in Abschnitt \ref{chap:vergleich}  vorgestellte Vergleich kann auf Grund der unterschiedlichen Teilmengen der Nutzer*innen keine Interpretionen gezogen werden. Vor Allem im Retweetclustering sollte hier eine Möglichkeit gefunden werden, mehr Nutzer*innen in die Cluster miteinzubeziehen.
 \section{Ergebnisinterpretation des Retweetclustering}
 \ref{sec:ergebnis-retweet}
 Mithilfe dieser Methode konnten 3 Gruppierung gefunden  werden, die Informationen (Retweets) nur innerhalb dieser Gruppe teilen und liefert damit eine Teilantwort auf Frage 4). Da es sich allerdings nur um die Retweets eines Nutzer handelt  und keine Aussage gemacht wird, ob diese Nutzer eventuell anderen Influencern folgt (und damit auch dessen Informationen erhält) ist der eindeutige Schluss auf eine "`Echokammer"' nicht gegeben.
@@ -11,9 +13,14 @@ Außerdem, ist in weiterführenden Arbeiten zu untersuchen, inwieweit ein Retwee
 Beispielsweise könnte ein Nutzer einen Influencer mit zu ihm gegensätzlicher Meinung retweeten, nur um diesen Gegensatz aufzuzeigen. Eine Einteilung in das gleiche Meinungscluster wäre hier falsch.
 Ein solcher Fall wird bei einem Nutzer allerdings nur vereinzelt auftreten; man könnte diesen mit einem Threshold auf Nutzerebene aussortiert. Da ein Threshold allerdings nur auf Supernutzerebene angewendete wird und hier die Retweets aller Nutzer schon aufsummiert wurden, sind solche Nutzer in den Cluster trotzdem enthalten. 
 Allerdings kann vor Allem die Gruppierung zweier Influencern in ein gleicher Cluster als Meinungsgleichheit angesehen werden. Frage 1) konnte aus dieser Perspektive also mithilfe des Retweetansatzes positiv beantwortet werden.
-
+Des Weiteren ist zu beachten, dass wie in Abschnitt \ref{chap:vergleich} dargestellt, nur ein Bruchteil aller Nutzer der Datenbasis in den Clustern vorhanden sind.
 \section{Ergebnisinterpretation des Keywordclustering}
 Diese Methode lieferte 23 Gruppierung von Nutzern die in der Gesamtheit ihrer Tweets dieselbe Schlagwörter verwenden und damit die selbe "`Sprache"' sprechen. Das heißt, Frage 2) konnte positiv beantwortet werden. Auch gilt es  ein ähnliches Problem zu diskutieren wie im Retweetclustering.
-Für einen Nutzer der z.B. ein Schlagwort einer im gegensätzlichen Meinung verwendet um diesen Gegensatz aufzuzeigen wäre eine entsprechende Meinungszuordnung falsch.
-Im Gegensatz zu \ref{sec:ergebnis-retweet} werden diese vereinzelten Fälle allerdings schon auf Nutzerebene aussortiert
-\label{sec:interpretation}
+Für einen Nutzer der z.B. ein Schlagwort einer im gegensätzlichen Meinung verwendet um diesen Kontrast aufzuzeigen wäre eine entsprechende Meinungszuordnung falsch.
+Im Gegensatz zu \ref{sec:ergebnis-retweet} werden diese vereinzelten Fälle allerdings schon auf Nutzerebene aussortiert, weshalb hier Frage 1) unter der Prämisse, dass von den verwendeten Schlagwörtern auf eine Meinung geschlossen werden kann, positiv beantwortet werden kann.
+Natürlich gilt es auch hier diese Prämisse wissenschaftlich zu untermauern.
+
+\section{Anwendung: Fakenews}
+Während dem Präsidentschaftswahlkampf in den USA 2016 waren zu diesem Thema 25\% aller auf Twitter verbreiteten Informationen \gls{Fakenews} \cite{fake-news}.
+Als Problem identifiziert versuchen soziale Platformen inklusive Twitter solche zu erkennen und zu unterbinden. 
+Die in dieser Arbeit vorgestellten Clusteringmethoden könnten bei dieser Unterbindungen unterstützen. Ist ein*e Nutzer*in dafür bekannt, Fakenews zu verbreiten, so können alle Nutzer*innen die mit ihm/ihr im selben Cluster sind ebenso gezielt auf das Verbreiten von Fakenews untersucht werden.

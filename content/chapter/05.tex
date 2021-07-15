@@ -76,6 +76,7 @@ Diese Methodik vermindert die Anzahl an Verbindungen und führt zu einer effizen
 Die Anzahl an Influencern ist wählbar und führt zu verschiedenen Ergebnisse, allerdings hat sich 100 als ein passender Parameter herausgestellt. Dieser Sachverhalt wird in Abschnitt näher diskutiert.
 
 \section{Nutzergruppen aggregieren}
+\label{sec:aggregieren}
  Influencer $I$ und Nutzer*innen $N$ können als Knoten $K = I \cup N$,  Beziehungen als gewichtete Kanten $E$ eines Graphen $G = (K,E)$ betrachtet werden.
 Dieser kann als ungerichtet definiert werden, da Kanten immer zu einem Influencer zeigen.
 $E$ ist hierbei eine Menge an Paaren der Form ($i\in I$,$n\in  N$,$g$) wobei $g$ die Anzahl der \gls{Retweet} darstellt. 
@@ -196,7 +197,10 @@ Ein Blick in das obere rechte, orangefarbene Cluster:
 "`rosenbusch\_"' (Henning Rosenbusch) ist ein unabhängiger Journalist, der sich für den "`Schweden-Weg"' einsetzt,
 "`laszlohealth"' (unbekannt) mit einem gepinnten Tweet: \textit{"`Corona ist eine abartige Mischung aus Glaubens- \& Polit-Krieg mit allen Mitteln geworden. Die Maske das Symbol der Zugehörigkeit. PCR-Massen-Testung die Waffe. Sachlichkeit, Meinungsfreiheit, normalen Umgang gibt es nicht mehr."'}\cite{laszlo} und "`Thomas\_Binder"', dessen Account gesperrt wurde, ist ein schweizer Arzt, der eine Anti-Regulierungs-Position vertritt und verhaftet und in die Psychiatrie eingeliefert wurde wegen mutmaßlicher Drohungen gegen Politiker.\cite{Thomas}.
 
-
+\section{Rückschluss auf Nutzer*innen}
+Um nun nicht nur die Influencer eines Cluster sondern auch die Nutzer*innen, die diese geretweetet haben zu indetifizieren, wurde der Prozessschritt des Aggregierens (Abschnitt \ref{sec:aggregieren}) erweitern, sodass für jeden Supernutzer gespeichert wird, welche Nutzer ihn ausmachen.
+Wurden nun die Cluster erstellt, können diesem Cluster auch alle Supernutzer zugeordnet werden, die mindestens eine Verbindungen zu einem Influencer aus diesem Cluster besitzen.
+Aus den zugehörigen Supernutzer können nun auch alle "`normalen"' Nutzer*innen des Cluster extrahiert werden.
 
 
 
