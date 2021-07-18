@@ -1,7 +1,7 @@
 \chapter{Clustering Retweets}
 \markright{\thechapter \,\,\currentname \, - Philipp Kappus}
 \label{chap:cluster_retweets}
-Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann also zwischen diesen Beiden Nutzer*innen hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern aufgebaut werden.
+Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann also zwischen diesen Beiden Nutzer*innen hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern*innen aufgebaut werden.
 Werden in diesem Netz Nutzer*innen identifiziert, die sich häufig untereinander \glspl{retweetet} so können diese einer Gruppe zugeordnet werden. Im Folgenden soll der Prozess solche Gruppen zu finden, dargestellt und die Ergebnisse präsentiert werden.
 
 \section{Daten vorbereiten}
@@ -71,7 +71,7 @@ wobei $x$ der Rang, $m$ die Steigung und $b$ der Skalierungsfaktor oder die Anza
 	\label{fig:tweetverteilung}
 \end{figure}
 Daraus wurde der Schluss gezogen, dass Beziehungen zwischen "`kleineren"' Nutzer*innen vernachlässigbar sind und nur Verbindungen zu den 100 meist \glspl{geretweetet} Nutzer*innen von Bedeutung sind. Diese werden im Folgenden "`Influencer"' genannt. Auch kann davon ausgegangen werden, dass Beziehung zwischen "`kleineren Nutzern"'  repräsentiert sind, da zwei Nutzer*innen die sich gegenseitig \glspl{retweetet}, wahrscheinlich auch eine Beziehung zur gleichen Influencer haben. 
-Diese Methodik vermindert die Anzahl an Verbindungen und führt zu einer effizenteren Verarbeitung der Daten sowie später zu einem übersichtlicheren Graphen (siehe Abschnitt %%%%%)
+Diese Methodik vermindert die Anzahl an Verbindungen und führt zu einer effizienteren Verarbeitung der Daten sowie später zu einem übersichtlicheren Graphen (siehe Abschnitt \ref{sec:aggregieren})
 Die Anzahl an Influencern ist wählbar und führt zu verschiedenen Ergebnisse, allerdings hat sich 100 als ein passender Parameter herausgestellt. Dieser Sachverhalt wird in Abschnitt näher diskutiert.
 
 \section{Nutzergruppen aggregieren}
@@ -123,7 +123,7 @@ Wie in Formel 5.2 und Abbildung \ref{fig:superknotenentwicklung} zu sehen, steig
 Bei $|I| = 100$ könnten bis zu $1.26*10^{30}$ Superknoten existieren. Das ist für jegliche Berechnung oder Darstellung unpraktikabel.
 Deshalb wird auch hier eine Komplexitätsverringerung durch Filtern unrelevanter Information vorgenommen indem alle Kanten von einem Superknoten zu einer Influencer gelöscht werden, die unter einem Schwellwert liegen. 
 Es wird davon ausgegangen, dass  bei einem niedrigen Kantengewicht die Nutzer*innen nur eine schwache Beziehung zu dem entsprechenden Influencer haben und diese damit für eine spätere Gruppierung irrelavant ist. 
-Wie dieser Schwellenwert festgelegt wird, wird in Abschnitt diskutiert. 
+Wie dieser Schwellenwert festgelegt wird, wird in Abschnitt \ref{sec:clutering} diskutiert. 
 Es gilt also mit dem Schwellwert $T$: \begin{equation}
 	E_{gefiltert} = \{(s,i,g)\in E|g>T\}
 \end{equation}
@@ -144,6 +144,7 @@ Trotzdem verringert es die Dominanz von niederrangigen Influencern.
 	\label{fig:power-law}
 \end{figure}
 \section{Clustering}
+\label{sec:clutering}
 Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (2,955,282 Tweets, 260,954 Nutzer), 100 Influencern und einem Schwellenwert von 61 ist in Abbildung \ref{fig:noclusters} zu sehen und wurde innerhalb von 2 Stunden und 58 Minuten berechnet. 
 \begin{figure}[h!]
 	\centering
@@ -190,9 +191,8 @@ Auf den oben vorgestellten Datensatz angewendet, braucht das Berechnen der \gls{
 
 \section{Einblick in die Cluster}
 \label{sec:einblick}
-Um die anfängliche Frage zu beantworten, ob Gruppierungen von Menschen mit ähnlicher Sichtweise auf die Covid-19 Pandemie und die dazugehörigen Regelungen identifizert werden können, soll nun ein kurzer Überblick über die Charaktere der einzelnen Cluster gegeben werden.
-Das gelb markierte Hauptcluster besteht aus öffentlich-rechtlichen und privaten Nachrichtenagenturen wie "`ZDF"', `"tagesschau"', "`derspiegel"' oder "`BILD"' sowie dem am häufigsten \gls{geretweetet} Nutzer im Datensatz: "`Karl\_Lauterbach"', der, aufgrund seines Hintergrunds in der Sozialdemokratischen Partei (SPD) und als Mediziner, in der öffentlichen Debatte über die Pandemie eine präsente Figur ist.\\
-Einige Influencer aus dem grünen Cluster sind: "`maxotte\_says"' (Max Otte) ehemaliger Vorsitzender der "`Werteunion"', eine Fraktion innerhalb der Christlich Demokratischen Union (CDU), bekannt dafür, konservativere Positionen zu vertreten, "`ainyrockstar"' eine rechter Journalistin \cite{schunke} und "`RolandTichy"' ehemaliger Herausgeber von "`Impuls"' und "`Euro"'.\\
+Um die anfängliche Frage zu beantworten, ob Gruppierungen von Menschen mit ähnlicher Sichtweise auf die Covid-19 Pandemie und die dazugehörigen Regelungen identifizert werden können, soll nun ein kurzer Überblick über die Charaktere der einzelnen Cluster gegeben werden. Das gelb markierte Hauptcluster besteht aus öffentlich-rechtlichen und privaten Nachrichtenagenturen wie "`ZDF"', `"tagesschau"', "`derspiegel"' oder "`BILD"' sowie dem am häufigsten \gls{geretweetet} Nutzer im Datensatz: "`Karl\_Lauterbach"', der, aufgrund seines Hintergrunds in der Sozialdemokratischen Partei (SPD) und als Mediziner, in der öffentlichen Debatte über die Pandemie eine präsente Figur ist.\\ \newline
+Einige Influencer aus dem grünen Cluster sind: "`maxotte\_says"' (Max Otte) ehemaliger Vorsitzender der "`Werteunion"', eine Fraktion innerhalb der Christlich Demokratischen Union (CDU), bekannt dafür, konservativere Positionen zu vertreten, "`ainyrockstar"' eine rechter Journalistin \cite{schunke} und "`RolandTichy"' ehemaliger Herausgeber von "`Impuls"' und "`Euro"'.\\ \newline
 Ein Blick in das obere rechte, orangefarbene Cluster:
 "`rosenbusch\_"' (Henning Rosenbusch) ist ein unabhängiger Journalist, der sich für den "`Schweden-Weg"' einsetzt,
 "`laszlohealth"' (unbekannt) mit einem gepinnten Tweet: \textit{"`Corona ist eine abartige Mischung aus Glaubens- \& Polit-Krieg mit allen Mitteln geworden. Die Maske das Symbol der Zugehörigkeit. PCR-Massen-Testung die Waffe. Sachlichkeit, Meinungsfreiheit, normalen Umgang gibt es nicht mehr."'}\cite{laszlo} und "`Thomas\_Binder"', dessen Account gesperrt wurde, ist ein schweizer Arzt, der eine Anti-Regulierungs-Position vertritt und verhaftet und in die Psychiatrie eingeliefert wurde wegen mutmaßlicher Drohungen gegen Politiker.\cite{Thomas}.
@@ -210,7 +210,7 @@ Während in Kapitel \ref{sec:einblick} die Cluster anhand einzelne Individuen an
 	\label{fig:topics}
 \end{figure}
 \newline
-Um zu bestimmen, welche Worte für ein Cluster "besonders" sind, wird die relative Häufigkeit des Wortes innerhalb des Clusters mit der relativen Häufigkeit des Wortes im gesamten Datensatz verglichen. Das sich daraus vergebene Verhältnis beschreibt, wie viel mal häufiger ein Wort innerhalb des Clusters als außerhalb dessen verwendet wird. Nun kann man eine Wortwolke erstellen, in welcher die Wörter entsprechend dieses Wertes skaliert werden. Der Prozess ist in Abbildung \ref{fig:prozess_topics} visualisiert. Abbildung \ref{fig:topics} zeigt das Ergebnis dieser Analyse, jeweils für die Schlüsselwörter und die Hashtags. Die Nummerierung der Cluster entspricht der Reihenfolge der Aufzählung in Kapitel \ref{sec:einblick}: Cluster 1 entspricht dem gelben, Cluster 2 dem grünen und Cluster 3 dem orange eingefärbten Clustern. Die Auswahl der zu betrachtenden Schlüsselwörter wird in Kapitel \ref{sec:aufbereitung_text} besprochen. \\ \newline
+Um zu bestimmen, welche Worte für ein Cluster \textit{besonders} sind, wird die relative Häufigkeit des Wortes innerhalb des Clusters mit der relativen Häufigkeit des Wortes im gesamten Datensatz verglichen. Das sich daraus vergebene Verhältnis beschreibt, wie viel mal häufiger ein Wort innerhalb des Clusters als außerhalb dessen verwendet wird. Nun kann man eine Wortwolke erstellen, in welcher die Wörter entsprechend dieses Wertes skaliert werden. Der Prozess ist in Abbildung \ref{fig:prozess_topics} visualisiert. Abbildung \ref{fig:topics} zeigt das Ergebnis dieser Analyse, jeweils für die Schlüsselwörter und die Hashtags. Die Nummerierung der Cluster entspricht der Reihenfolge der Aufzählung in Kapitel \ref{sec:einblick}: Cluster 1 entspricht dem gelben, Cluster 2 dem grünen und Cluster 3 dem orange eingefärbten Clustern. Die Auswahl der zu betrachtenden Schlüsselwörter wird in Kapitel \ref{sec:aufbereitung_text} besprochen. \\ \newline
 Auffallend ist, dass die so gefunden Worten sich teilweise sogar sehr gut den (politischen) Leitlinien der aufgeführten Personen entsprechen.
 \begin{figure}[h]
 	\centering
