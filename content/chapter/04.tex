@@ -1,7 +1,7 @@
 \chapter{Sentimentanalyse}
 \markright{\thechapter \,\,\currentname \, - Philipp Kappus}
 \label{chap:sentiment}
-Die Sentimentanalyse ist ein Teilgebiet des \gls{Text Mining} und beinhaltet die Klassifizierung von Aussagen und Meinungen in Texten in Kategorien wie z.B. "`positiv"'' und "`negativ"'\footfullcite[][S. 113]{python-sm-analysis}. Wie in Abschnitt \ref{sec:hypothesen} beschrieben, soll der Versuch unternommen werden, die gesammelten Tweets auf ihre Meinung mittels Sentimentanalyse zu untersuchen und daraufhin in Gruppen mit gleichen Werten zu klassifizieren. 
+Die Sentimentanalyse ist ein Teilgebiet des \gls{Text Mining} und beinhaltet die Klassifizierung von Aussagen und Meinungen in Texten in Kategorien wie z.B. "`positiv"'' und "`negativ"'\cite[S. 113]{python-sm-analysis}. Wie in Abschnitt \ref{sec:hypothesen} beschrieben, soll der Versuch unternommen werden, die gesammelten Tweets auf ihre Meinung mittels Sentimentanalyse zu untersuchen und daraufhin in Gruppen mit gleichen Werten zu klassifizieren. 
 \section{Technologieauswahl}
 \label{sec:Technologieauswahl}
 Sentimentanalyse ist ein komplexer Vorgang, der Technologien aus dem Gebiet des \ac{NLP}, der Computerlinguistik und der Biometrik beinhaltet, weshalb hier auf schon existente Systeme zurückgegriffen wurde.
@@ -22,7 +22,7 @@ Die Datenauswahl wurde mit den in Abschnitt \ref{sec:Technologieauswahl} genannt
 
 Probleme der Erkennung von doppelten Verneinung oder Ironie treten auf oder von Menschen intuitiv als negativ betrachtetete Tweets werden falsch eingruppiert.
 So z.B. an diesem Beispiel:\\
-\textit{"`Wir brauchen keine "`Maßnahmen"' wegen einem Virus von vielen! Wir haben ein Immunsystem! Wir wollen raus aus dieser Matrix des Corona-Hoax! STOP THE GREAT RESET, er dient nicht unserer Gesundheit! Ganz bestimmt nicht!"'}\footfullcite{negativ-tweet} \\beinhaltet eine von Menschen eher als negativ aufgefasste Aussage. Trotzdem bewertet TextBlob die übersetzte Version mit einer Polarität von 0.659 und NLTK sogar mit 0.8. \\
+\textit{"`Wir brauchen keine "`Maßnahmen"' wegen einem Virus von vielen! Wir haben ein Immunsystem! Wir wollen raus aus dieser Matrix des Corona-Hoax! STOP THE GREAT RESET, er dient nicht unserer Gesundheit! Ganz bestimmt nicht!"'}\cite{negativ-tweet} \\beinhaltet eine von Menschen eher als negativ aufgefasste Aussage. Trotzdem bewertet TextBlob die übersetzte Version mit einer Polarität von 0.659 und NLTK sogar mit 0.8. \\
 Des Weiteren belastet die Covid-19 Pandemie  die meisten Nutzer*innen, sodass ein allgemein eher negativer Tonus in den Texten herrscht; das macht eine Unterscheidung schwierig.\\ 
 Eine Einteilung in positiv und negativ ist oft nicht ausreichend, eine Unterscheidung z.B. zwischen politischen Gruppierungen ist nicht möglich.
 Dafür bedarf es höher entwickelte Systeme die Aussagen bezüglich ihres Inhalts differenziert kategorisieren können.\\
@@ -31,9 +31,8 @@ Dafür wurde für jede*n Nutzer*in der Durschnittswert seiner/ihrer Sentimentwer
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.5\linewidth]{images/SentimentPlot}
-	\caption[]{Verteilung der Nutzer*innen anhand der durchschnittlichen Sentimentwerte ihrer Tweets}
+	\caption{Verteilung der Nutzer*innen anhand der durchschnittlichen Sentimentwerte ihrer Tweets}
 	\label{fig:sentimentplot}
 \end{figure}
-
 In Abbildung \ref{fig:sentimentplot}  liegt eine unstrukturierte Verteilung vor, es sind keine offensichtlichen Gruppierung erkennbar.
 Aufgrunddessen und weil der Datensatz aufgrund der Übersetzungs-Schranke nur schwer erweiterbar ist, sowie vor dem Hintergrund der oben genannten Ungenauigkeiten wurde der Versuch der Eingruppierung anhand von Sentimentdaten beendet.

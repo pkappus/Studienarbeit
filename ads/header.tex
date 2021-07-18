@@ -137,27 +137,15 @@
 % Captions fontsize
 \addtokomafont{caption}{\small}
 
-% Bibliographie settings
-\iflang{de}{%
-\usepackage[
-	backend=biber,		% recommended. Alternative: bibtex
-	bibwarn=true,
-	bibencoding=utf8,	         % If .bib file is encoded with utf8, otherwise ascii
-	sortlocale=de_DE,
-	style=\quoteStyle,
-]{biblatex}
-}
-\iflang{en}{%
-\usepackage[
-	backend=biber,		% recommended. Alternative: bibtex
-	bibwarn=true,
-	bibencoding=utf8,        % If .bib file is encoded with utf8, otherwise ascii
-	sortlocale=en_US,
-	style=\quoteStyle,
-]{biblatex}
-}
+\usepackage[numbers]{natbib}
 
-\addbibresource{bibliographie.bib}
+% Bibliographie settings
+%\usepackage[
+%	backend=bibtex,		% recommended. Alternative: bibtex
+%	bibencoding=utf8,	         % If .bib file is encoded with utf8, otherwise %ascii
+%	sortlocale=de_DE,
+%	style=\quoteStyle,
+%]{biblatex}
 
 % Hurenkinder und Schusterjungen verhindern
 % http://projekte.dante.de/DanteFAQ/Silbentrennung

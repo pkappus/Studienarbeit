@@ -22,7 +22,6 @@ Um die Tweets auf Beziehung zwischen Nutzer*innen zu schließen wurden folgende 
 		.3 Tweet2.json.
 		.3 Tweet3.json.
 	}
-
 	\item \textbf{Metadaten erstellen}\\
 	Nun soll für jede*n Nutzer*in Metadaten erstellt werden, von wem und wie oft er von anderen Nutzer*innen \gls{geretweetet} wurde.
 	Dafür werden alle Nutzer*innen und ihre Tweets analysiert; ist einer davon ein \gls{Retweet} eines andere*n Nutzer*in so wird das, zusammen mit der Anzahl, in den Metdaten desjenigen Nutzers, der \gls{geretweetet} wurde, vermerkt. 
@@ -68,7 +67,7 @@ wobei $x$ der Rang, $m$ die Steigung und $b$ der Skalierungsfaktor oder die Anza
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/power-law}
-	\caption[]{Verteilung der Anzahl an \glspl{Retweet} (blau) und das inverse Potenzgesetz (orange)}
+	\caption{Verteilung der Anzahl an \glspl{Retweet} (blau) und das inverse Potenzgesetz (orange)}
 	\label{fig:tweetverteilung}
 \end{figure}
 Daraus wurde der Schluss gezogen, dass Beziehungen zwischen "`kleineren"' Nutzer*innen vernachlässigbar sind und nur Verbindungen zu den 100 meist \glspl{geretweetet} Nutzer*innen von Bedeutung sind. Diese werden im Folgenden "`Influencer"' genannt. Auch kann davon ausgegangen werden, dass Beziehung zwischen "`kleineren Nutzern"'  repräsentiert sind, da zwei Nutzer*innen die sich gegenseitig \glspl{retweetet}, wahrscheinlich auch eine Beziehung zur gleichen Influencer haben. 
@@ -80,11 +79,11 @@ Die Anzahl an Influencern ist wählbar und führt zu verschiedenen Ergebnisse, a
  Influencer $I$ und Nutzer*innen $N$ können als Knoten $K = I \cup N$,  Beziehungen als gewichtete Kanten $E$ eines Graphen $G = (K,E)$ betrachtet werden.
 Dieser kann als ungerichtet definiert werden, da Kanten immer zu einem Influencer zeigen.
 $E$ ist hierbei eine Menge an Paaren der Form ($i\in I$,$n\in  N$,$g$) wobei $g$ die Anzahl der \gls{Retweet} darstellt. 
-Dieser Graph kann visualisiert werden. Genutzt wurde dafür \gls{Python3}, \gls{Matplotlib} und eine NEATO Implementierung als \gls{Layoutalgorithmus} (siehe \footfullcite{neato}).
+Dieser Graph kann visualisiert werden. Genutzt wurde dafür \gls{Python3}, \gls{Matplotlib} und eine NEATO Implementierung als \gls{Layoutalgorithmus} (siehe \cite{neato}).
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{images/GraphNoAggregation}
-	\caption[]{Graph mit drei Influencern (blau)}
+	\caption{Graph mit drei Influencern (blau)}
 	\label{fig:graphnoaggregation}
 \end{figure}
 
@@ -118,7 +117,7 @@ Wie in Formel 5.2 und Abbildung \ref{fig:superknotenentwicklung} zu sehen, steig
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/Superknotenentwicklung}
-	\caption[]{Entwicklung der möglichen Superknoten mit der Anzahl an Influencern}
+	\caption{Entwicklung der möglichen Superknoten mit der Anzahl an Influencern}
 	\label{fig:superknotenentwicklung}
 \end{figure}
 Bei $|I| = 100$ könnten bis zu $1.26*10^{30}$ Superknoten existieren. Das ist für jegliche Berechnung oder Darstellung unpraktikabel.
@@ -141,7 +140,7 @@ Trotzdem verringert es die Dominanz von niederrangigen Influencern.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth]{images/power-law}
-	\caption[]{The distribution of retweets (blue) and the power-law from equation 4(orange)}
+	\caption{The distribution of retweets (blue) and the power-law from equation 4(orange)}
 	\label{fig:power-law}
 \end{figure}
 \section{Clustering}
@@ -149,19 +148,19 @@ Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (2,95
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth]{images/NoClusters}
-	\caption[]{Ergebnisgraph März 2021}
+	\caption{Ergebnisgraph März 2021}
 	\label{fig:noclusters}
 \end{figure}
 Als Mensch kann man ein  großes zentrales \gls{Cluster}, eins das mit diesem verbunden ist (unten) und ein seperates \gls{Cluster} (oben links) erkennen. 
 Im Folgenden wird dargelegt, wie diese \gls{Cluster} automatisch erkannt werden.
 Zu einem \gls{Cluster} können in diesem Kontext alle Knoten gezählt werden, die dicht miteinander verbunden ist; das heißt sie stehen über einige weitere Knoten in Beziehnung.
-Da eine Anzahl an \gls{Cluster} vorher nicht festgelegt werden kann und es kein geometrischen Raum gibt (nur die Verbindungen zählen, die Positionen der Punkte irrelevant) wurde sich hier für eine abgewandelte Form des DBSCAN - Algorithmus entschieden (siehe \footfullcite{dbscan}).
+Da eine Anzahl an \gls{Cluster} vorher nicht festgelegt werden kann und es kein geometrischen Raum gibt (nur die Verbindungen zählen, die Positionen der Punkte irrelevant) wurde sich hier für eine abgewandelte Form des DBSCAN - Algorithmus entschieden (siehe \cite{dbscan}).
 Als Knoten werden nur Influencern betrachtet da die Superknoten nur die Verbindung zu weiteren Influencern darstellen. 
 Die Nachbar eines Influencer sind alle Influencern die mit dem Ausgangsinfluencer über ein Superknoten verbunden sind (siehe Abbildung \ref{fig:dbscan-neighbours})
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DBSCAN-neighbours}
-	\caption[]{Nachbarn eines Influencer über verbundene Superknoten}
+	\caption{Nachbarn eines Influencer über verbundene Superknoten}
 	\label{fig:dbscan-neighbours}
 \end{figure}
 Eine Mindestdistanz $\epsilon$ wird nicht benötigt, da alle Verbindungen die dadurch nicht gezählt würden, bereits durch den in Abschnitt \ref{sec:kanten-filtern} definierten Schwellwert aussortiert wurden.
@@ -185,24 +184,40 @@ Auf den oben vorgestellten Datensatz angewendet, braucht das Berechnen der \gls{
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth]{images/Clusters_screenshot}
-	\caption[]{Graph mit Markierungen um die gefundenen \gls{Cluster}}
+	\caption{Graph mit Markierungen um die gefundenen \gls{Cluster}}
 	\label{fig:clustersscreenshot}
 \end{figure}
 
 \section{Einblick in die Cluster}
+\label{sec:einblick}
 Um die anfängliche Frage zu beantworten, ob Gruppierungen von Menschen mit ähnlicher Sichtweise auf die Covid-19 Pandemie und die dazugehörigen Regelungen identifizert werden können, soll nun ein kurzer Überblick über die Charaktere der einzelnen Cluster gegeben werden.
 Das gelb markierte Hauptcluster besteht aus öffentlich-rechtlichen und privaten Nachrichtenagenturen wie "`ZDF"', `"tagesschau"', "`derspiegel"' oder "`BILD"' sowie dem am häufigsten \gls{geretweetet} Nutzer im Datensatz: "`Karl\_Lauterbach"', der, aufgrund seines Hintergrunds in der Sozialdemokratischen Partei (SPD) und als Mediziner, in der öffentlichen Debatte über die Pandemie eine präsente Figur ist.\\
 Einige Influencer aus dem grünen Cluster sind: "`maxotte\_says"' (Max Otte) ehemaliger Vorsitzender der "`Werteunion"', eine Fraktion innerhalb der Christlich Demokratischen Union (CDU), bekannt dafür, konservativere Positionen zu vertreten, "`ainyrockstar"' eine rechter Journalistin \cite{schunke} und "`RolandTichy"' ehemaliger Herausgeber von "`Impuls"' und "`Euro"'.\\
 Ein Blick in das obere rechte, orangefarbene Cluster:
 "`rosenbusch\_"' (Henning Rosenbusch) ist ein unabhängiger Journalist, der sich für den "`Schweden-Weg"' einsetzt,
 "`laszlohealth"' (unbekannt) mit einem gepinnten Tweet: \textit{"`Corona ist eine abartige Mischung aus Glaubens- \& Polit-Krieg mit allen Mitteln geworden. Die Maske das Symbol der Zugehörigkeit. PCR-Massen-Testung die Waffe. Sachlichkeit, Meinungsfreiheit, normalen Umgang gibt es nicht mehr."'}\cite{laszlo} und "`Thomas\_Binder"', dessen Account gesperrt wurde, ist ein schweizer Arzt, der eine Anti-Regulierungs-Position vertritt und verhaftet und in die Psychiatrie eingeliefert wurde wegen mutmaßlicher Drohungen gegen Politiker.\cite{Thomas}.
-
 \section{Rückschluss auf Nutzer*innen}
 Um nun nicht nur die Influencer eines Cluster sondern auch die Nutzer*innen, die diese geretweetet haben zu indetifizieren, wurde der Prozessschritt des Aggregierens (Abschnitt \ref{sec:aggregieren}) erweitern, sodass für jeden Supernutzer gespeichert wird, welche Nutzer ihn ausmachen.
 Wurden nun die Cluster erstellt, können diesem Cluster auch alle Supernutzer zugeordnet werden, die mindestens eine Verbindungen zu einem Influencer aus diesem Cluster besitzen.
 Aus den zugehörigen Supernutzer können nun auch alle "`normalen"' Nutzer*innen des Cluster extrahiert werden.
-
-
+\section{Bestimmung der Themen innerhalb der Cluster}
+\label{sec:topics}
+Während in Kapitel \ref{sec:einblick} die Cluster anhand einzelne Individuen analysiert und damit in einen thematischen Zusammenhang gebracht wurden, soll im folgenden Anhand einer Wortanalyse das Thema innerhalb der Cluster bestimmt werden.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{images/cluster_topics}
+	\caption{Themen der Cluster als Wortwolken}
+	\label{fig:topics}
+\end{figure}
+\newline
+Um zu bestimmen, welche Worte für ein Cluster "besonders" sind, wird die relative Häufigkeit des Wortes innerhalb des Clusters mit der relativen Häufigkeit des Wortes im gesamten Datensatz verglichen. Das sich daraus vergebene Verhältnis beschreibt, wie viel mal häufiger ein Wort innerhalb des Clusters als außerhalb dessen verwendet wird. Nun kann man eine Wortwolke erstellen, in welcher die Wörter entsprechend dieses Wertes skaliert werden. Der Prozess ist in Abbildung \ref{fig:prozess_topics} visualisiert. Abbildung \ref{fig:topics} zeigt das Ergebnis dieser Analyse, jeweils für die Schlüsselwörter und die Hashtags. Die Nummerierung der Cluster entspricht der Reihenfolge der Aufzählung in Kapitel \ref{sec:einblick}: Cluster 1 entspricht dem gelben, Cluster 2 dem grünen und Cluster 3 dem orange eingefärbten Clustern. Die Auswahl der zu betrachtenden Schlüsselwörter wird in Kapitel \ref{sec:aufbereitung_text} besprochen. \\ \newline
+Auffallend ist, dass die so gefunden Worten sich teilweise sogar sehr gut den (politischen) Leitlinien der aufgeführten Personen entsprechen.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{images/getting_cluster_topics}
+	\caption{Bestimmung der Themen innerhalb der Cluster}
+	\label{fig:prozess_topics}
+\end{figure}
 
 
 

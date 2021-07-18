@@ -12,7 +12,7 @@
 \input{content/glossary}
 \usepackage{dirtree}
 \begin{document}
-
+	\def\UrlBreaks{\do\/\do-}
 	% Cover
 	\begin{spacing}{1}
 		\input{ads/cover}
@@ -92,7 +92,8 @@
 
 	% Bibilography
 	\cleardoublepage
-	\printbibliography
+	\bibliographystyle{IEEEtranN}
+	\bibliography{bibliographie}
 	%References
 	%\setlength{\bibleftmargin}{.125in}
 	%\setlength{\bibindent}{-\bibleftmargin}

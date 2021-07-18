@@ -2,11 +2,10 @@
 \markright{\thechapter \,\,\currentname \, - Paul Groß}
 \label{chap:cluster_hashtags}
 Es scheint offensichtlich, das wenn wir über ein bestimmtes Thema diskutieren auch bestimmt Wörter benutzten, um uns überhaupt mit dem Thema auseinander setzen zu können. Eine Diskussion über den Klimawandel scheint schwer praktikabel, ohne auch nur einmal das Wort "{}Klimawandel"{} zu benutzten. Diese, schon fast als Axiom betrachtbare Tatsache soll nun als Fundament für folgende These gelten: Bei Menschen, welche über ein bestimmtes Themen sprechen, deckt sich die Auswahl der verwendeten Wörter eher als bei Menschen, welche präferiert über andere Themen diskutieren. Diese Hypothese legt also nahe, dass Texte, welcher sich mit dem Klimawandel auseinandersetzt sich untereinander in der Wortwahl weniger unterscheiden als wenn man sie mit einem Text über den Nahostkonflikt vergleicht.
-
 \section{Berechnung der Ähnlichkeit von Texten}
 \label{chap:berechnung_texteahnlichkeit}
 Um die Ähnlichkeit der Worte nun vergleichen zu können, muss zunächst ein Kriterium oder eine Maßzahl gefunden und anschließend berechnet werden, anhand der die Texte verglichen werden können. Distanzfunktionen kennt man vor allem aus der Geometrie. Hier ist ein häufiger Vertreter die Euklidische Distanz. \\ \newline
-Eine hierfür geeignete Methodik hierzu ist die Berechnung der Kosinus-Ähnlickkeit \footfullcite[2]{Godfrey.21.08.2014}. Sind die Merkmale zweier zu vergleichenden Merkmalsträger als n-dimensionaler Vektor vorhanden, so bestimmt die Kosinus-Ähnlickkeit den Winkel zwischen diesen beiden Vektoren. Die Euklidische-Distanz jedoch  bestimmt die Abstand zwischen den beiden Enden der Vektoren. Außerdem ist die Kosinus-Ähnlickkeit schneller zu berechnen und berechnet die Abstände zwischen zwei Texten unabhängig von deren Länge, im Gegensatz zur Euklidischen-Distanz.
+Eine hierfür geeignete Methodik hierzu ist die Berechnung der Kosinus-Ähnlichkeit \cite[2]{Godfrey.21.08.2014}. Sind die Merkmale zweier zu vergleichenden Merkmalsträger als n-dimensionaler Vektor vorhanden, so bestimmt die Kosinus-Ähnlichkeit den Winkel zwischen diesen beiden Vektoren. Die Euklidische-Distanz jedoch  bestimmt die Abstand zwischen den beiden Enden der Vektoren. Außerdem ist die Kosinus-Ähnlichkeit schneller zu berechnen und berechnet die Abstände zwischen zwei Texten unabhängig von deren Länge, im Gegensatz zur Euklidischen-Distanz.
 \begin{equation}
 	\begin{aligned} 
 		\text{Berechnung der Kosinus-Ähnlickkeit}&& 
@@ -16,8 +15,7 @@ Eine hierfür geeignete Methodik hierzu ist die Berechnung der Kosinus-Ähnlickk
 	\end{aligned} 
 	\label{eq:distance}
 \end{equation}
-
-Die Formeln \eqref{eq:distance} zeigen die Berechnung der Kosinus-Ähnlickkeit und der Euklidischen-Distanz zweier Vektoren im n-dimensionalen Raum. Um nun die Texte miteinander vergleichen zu können müssen für diese zunächst in Merkmalsvektoren überführt werden. \\ \newline
+Die Formeln \eqref{eq:distance} zeigen die Berechnung der Kosinus-Ähnlichkeit und der Euklidischen-Distanz zweier Vektoren im n-dimensionalen Raum. Um nun die Texte miteinander vergleichen zu können müssen für diese zunächst in Merkmalsvektoren überführt werden. \\ \newline
 Da die Merkmale in diesem Kontext die verwendeten Wörter sind, braucht es einen Vektor, welcher beschreibt, ob ein bestimmtes Wort in einem Text enthalten ist oder nicht. Dazu müssen zuerst alle Wörter bestimmt werden, welche in der Summe $W_{acc}$ aller verwendeten Texte verwendet werden. Diese bilden die Summe aller möglichen Merkmale. Anschließend wird überprüft, welcher der Worte, welche über alle Texte hinweg existieren in den einzelnen Texten wieder gefunden werden. Dies soll nun anhand des Satzes $A$ "`Marc isst gerne Bananen"' und des Satzes $B$ "`Bananen kauft Lea gerne"' dargestellt werden. Die Menge $W_{x}$ stellt die Menge der im Satz enthaltenen Wörter dar. 
 \begin{equation}
 	\begin{aligned} 
@@ -28,8 +26,6 @@ Da die Merkmale in diesem Kontext die verwendeten Wörter sind, braucht es einen
 	\label{eq:satz}
 \end{equation}
 Aus der Formel \eqref{eq:satz} ergeben sich die Wortmengen der einzelnen Sätze sowie die Vereinigung aller Wortmengen. Um diese Wortmengen zu überprüfen wird nun für jedes Wort $w$ in $W_{acc}$ geprüft, ob $w$ in der Wortmenge des Satzes $W_{x}$ enthalten ist. 
-
-
 \begin{center}
 	\begin{table}
 	\begin{tabular}{c | c | c | c | c | c | c}
@@ -61,28 +57,43 @@ Auf diese lässt sich nun die Kosinus-Ähnlichkeit sowie die euklidische Distanz
 		{d}_{cos}&=\frac{v_{A}\cdot v_{B}}{\left|v_{A}\right|\cdot \left|v_{B}\right|} = 0.5\\
 		{d}_{euk}&=\sqrt{\sum _{i=0}^{n}{\left|{v_{A}}_{i}-{v_{B}}_{i}\right|}^{2}} = 2 \\  
 	\end{aligned} 
-	\label{eq:distance}
+	\label{eq:distance_res}
 \end{equation}
-Anhand eines bekannten Datensatzes soll nun die Methodik der Ähnlichkeitsanalyse von Texten erarbeitet und verifiziert sein. Welche der beiden Abstands- bzw. Ähnlichkeitsfunktionen die besseren Ergebnisse liefert.
-\section{Verifikation der Ähnlichkeitsanalyse}
-Die am Anfang des Kapitels getroffene Überlegungen legen nahe, dass Texte, welche sich mit dem gleichen Thema beschäftigen, eine ähnliche Auswahl von Wörtern verwenden. Genau dieses Phänomen soll hier in einer Stichprobe von vier Texten untersucht werden. Bei diesen handelt es sich um Artikel der Tagesschau, drei zum Thema Klimawandel und einer zum Thema Nahostkonflikt. Konkret sind es die Artikel unter den Titeln "`Deutschland soll "`klimafest"' werden"' \footfullcite[]{tag_klima_klimafest}, "`Klimawandel bleibt größte Gefahr"' \footfullcite[]{tag_klima_gefahr} und "`Wo der Klimawandel längst Realität ist"' \footfullcite[]{tag_klima_realiteat} zum Thema Klimawandel und der Artikel "Die Gewalt nimmt nicht ab"' \footfullcite[]{tag_nahost}, welcher sich mit dem Nahostkonflikt beschäftigt. \\ \newline
-Mithilfe der im \autoref{chap:berechnung_texteahnlichkeit} mathematischen Grundlage soll nun unter Verwendung der Kosinus-Ähnlickkeit die Ähnlichkeit der Texte zueinander in einer Matrix dargestellt werden. Um diese These zu beweisen, muss nun eine Methode entwickelt werden, um die Ähnlichkeit der Texte darzustellen. Dabei müssen sich die drei ersteren Texte, welche alle das Thema Klimawandel behandeln, untereinander Ähnlich sein. Zudem müssen sie zum vierten Text mit dem Thema Nahostkonflikt unterscheiden. \\ \newline
-Im nachfolgenden soll nun der Prozess dargestellt werden, mit welchem diese Unterscheidung realisiert wurde.
 \section{Aufbereitung von Texten zur Ähnlichkeitsanalyse}
-Ein großes Problem bei der semantischen Analyse von Texten ist der gering Informationsgehalt pro Wort. Die meisten Worte innerhalb eines Satzes dienen dem Menschen zwar zum besseren Verständnis und Einordnung des Textes, dienen aber nicht wirklich dem Inhalt des Textes. So sind zur Einordnung des Themas des Satzes "`Nun hat die Bundesregierung einen Aktionsplan vorgelegt"' nur die Wörter "`Bundesregierung"' und "`Aktionsplan"' von entschiedener Bedeutung. \\ \newline
-Um das Rauchen in einem Satz nun zu verringern, muss man zunächst alle Wörter herausfiltern, welche nicht maßgeblich zur Semantik des Satzes beitragen. Diese Art der Wörter, unter welchen vor allem Personal- und Possessivpronomen fallen, werden allgemein Stoppwörter genannt. Im Kontext dieser Arbeit wurde eine sehr erweiterte Liste an Stoppwörtern verwendet, welche sich unter folgenden Link finden lässt: \url{https://github.com/solariz/german_stopwords/}. \\ \newline
-Zudem sind durch die Regeln der Grammatik eigentlich gleiche Wörter innerhalb unterschiedlich Sätze in unterschiedlichen Kasus wiederzufinden. Auch unterschiedliche Tempora führen zu einer Abänderung der Wortstämme. So sollten die Wörter "`demonstrieren"' und "`demonstrierte"' zusammengeführt werden. \\ \newline
-Um in einen Text also weiter das Rauchen zu verringern, müssen die einzelnen Wörter auf ihren Wortstamm zurückgeführt werden, also die original flektierten und abgeleiteten Wörter zu Ihrer Grundform zurückgeführt werden. Hierfür gibt es zwei unterschiedliche Methodiken: Beim Stemming wird über Heuristik der Suffix der Wörter entfernt. Dies funktioniert zwar beim Wort \textit{Pflanzen}, welches durch das entfernen des n auf den korrekten Singular \textit{Pflanze} zurückgeführt werden kann, bei \textit{Bäumen} stoßt man jedoch schon auf Probleme. Eine bessere Methodik ist daher die Lemmatisierung. Hier wird die Rückführung anhand einer Datenbank realisiert. In dieser würde so für das Wort \textit{Häuser} der korrekte Singular \textit{Haus} zu finden sein. Da präzisere Ergebnisse der Methodik der Lemmatisierung immanent sind, soll diese verwendet werden. Für Deutsche Texte gibt es hierfür unterschiedliche Bibliotheken für Python, welche im Nachfolgenden verglichen werden sollen: \\ \newline
-
+\label{sec:aufbereitung_text}
+Ein großes Problem bei der semantischen Analyse von Texten ist der gering Informationsgehalt pro Wort. Die meisten Worte innerhalb eines Satzes dienen dem Menschen zwar zum besseren Verständnis und Einordnung des Textes, dienen aber nicht wirklich dem Inhalt des Textes. So sind zur Einordnung des Themas des Satzes "`Nun hat die Bundesregierung einen Aktionsplan vorgelegt"' nur die Wörter "`Bundesregierung"' und "`Aktionsplan"' von entschiedener Bedeutung. Von entscheidender Bedeutung für die Qualität der Berechnung einer Distanz zwischen zwei Texten ist also die Auswahl der Wörter, welche zum Merkmausvektor beitragen. Eine Methodik zur Auswahl dieser soll nun vorgestellt werden.
+\subsection{Entfernen von Stoppwörtern}
+Um das Rauschen in einem Satz nun zu verringern, muss man zunächst alle Wörter herausfiltern, welche nicht maßgeblich zur Semantik des Satzes beitragen. Diese Art der Wörter, unter welchen vor allem Personal- und Possessivpronomen fallen, werden allgemein Stoppwörter genannt. Im Kontext dieser Arbeit wurde eine sehr erweiterte Liste an Stoppwörtern verwendet, welche sich unter folgenden Link finden lässt: \url{https://github.com/solariz/german_stopwords/}. \\ \newline
+Zudem sind durch die Regeln der Grammatik eigentlich gleiche Wörter innerhalb unterschiedlich Sätze in unterschiedlichen Kasus wiederzufinden. Auch unterschiedliche Tempora führen zu einer Abänderung der Wortstämme. So sollten die Wörter "`demonstrieren"' und "`demonstrierte"' zusammengeführt werden.
+\subsection{Lemmatisierung der Schlüsselworte}
+Um in einen Text also weiter das Rauschen zu verringern, müssen die einzelnen Wörter auf ihren Wortstamm zurückgeführt werden, also die original flektierten und abgeleiteten Wörter zu Ihrer Grundform zurückgeführt werden. Hierfür gibt es zwei unterschiedliche Methodiken: Beim Stemming wird über Heuristik der Suffix der Wörter entfernt. Dies funktioniert zwar beim Wort \textit{Pflanzen}, welches durch das entfernen des n auf den korrekten Singular \textit{Pflanze} zurückgeführt werden kann, bei \textit{Bäumen} stoßt man jedoch schon auf Probleme. Eine bessere Methodik ist daher die Lemmatisierung. Hier wird die Rückführung anhand einer Datenbank realisiert. In dieser würde so für das Wort \textit{Häuser} der korrekte Singular \textit{Haus} zu finden sein. Da präzisere Ergebnisse der Methodik der Lemmatisierung immanent sind, soll diese verwendet werden. Für Deutsche Texte gibt es hierfür unterschiedliche Bibliotheken für Python, welche im Nachfolgenden verglichen werden sollen: \\ \newline
 Eine sehr gute Vorarbeit findet sich hier in \cite{lemma}. Hier werden mehrere deutsche Bibliotheken zur Lemmatisierung aufgeführt und verglichen. Der Autor schließt hier durch einen Versuchsaufbau auf drei als sehr gut geeignete Bibliotheken zur Lemmatisierung mit den Namen HanTa, IWNLP  und SpaCy. Von diesen soll non SpaCy und HanTa verglichen werden, IWNLP ließ sich leider schwer installieren.\\ \newline
-Ein guter Lemmatisierungsalgorithmus zeichnet sich dadurch aus, dass möglichst viele unterschiedliche Formen eines Wortes auf die selbe Grundform gebracht werden. Das führt dazu, dass die Anzahl unterschiedlicher Worte in einem Text zurück geht. Je besser die Lemmatisierung, desto weniger unterschiedliche Worte. Somit soll verglichen werden, wie viele unterscheidbare Wörter in einem Text überbleiben, wenn dessen Wörter durch den HanTan oder SpaCy lemmatisiert wurden. Da jedoch die Anzahl an unterschiedlicher Wörter eines Textes auch mit der Länge des Textes zusammenhängt, soll zur besseren Darstellung verglichen werden, um wie viel Prozent die ursprünglichen unterscheidbaren Wörter des Text reduziert werden. Hat Text A also vor Lemmatisierung 10 unterscheidbare Wörter und danach 9, so wurden diese um 10\% reduziert. Abbildung \ref{label} zeigt diese Werte für unterschiedliche Textlängen. Ein weiterer 
-
-
-
-
-Die Tabellen in Abbildung \ref{fig:textvergleich} stellen das Ergebnis der nun besprochenen Methodik dar. Jede Zelle der Tabelle stellt dar, wie Ähnlich sich Text A, welcher aus der Spalte entnommen werden kann und Text B, welcher durch die Zeile angegeben ist, sind. Mit jeder Tabelle ein Prozessschritt eingeführt. So werden in Tabelle (b) die Stoppwörter herausgefiltert, in Tabelle (c) wird zudem noch die Wortstandrückführung durchgeführt. Zur besseren Visualisierung wurden die Zellen abhängig vom Ähnlichkeitswert eingefärbt: Der höchste Wert wird grün gefärbt, werden der niedrigste Wert rot markiert wird. Die Farbwerte der restlichen Zellen werden über eine lineare Interpolation und additive Farbmischung bestimmt.\\ \newline
-Die vier Tabellen zeigen die Sinnhaftigkeit jedes Schrittes eindeutig auf: Während in der Tabelle ganz oben das Ergebnis noch alles andere als das gewünschte ist, werden die Texte in Tabelle (d) eindeutig nach Thema unterscheidbar. So sieht man, dass  in Tabelle (a)  der Text "`Wo der Klimawandel längst Realität ist"' dem Text "`Nahostkonflikt: Die Gewalt nimmt nicht ab"' mit einem Wert von 0.023 ähnlicher ist als dem Text "`Klimawandel bleibt größte Gefahr"' mit dem Wert 0.219. In Tabelle (d) werden die beiden Texte zum Thema Klimawandel deutlich von dem dritten Text unterschieden. 
+Ein guter Lemmatisierungsalgorithmus zeichnet sich dadurch aus, dass möglichst viele unterschiedliche Formen eines Wortes auf die selbe Grundform gebracht werden. Das führt dazu, dass die Anzahl unterschiedlicher Worte in einem Text zurück geht. Je besser die Lemmatisierung, desto weniger unterschiedliche Worte. Somit soll verglichen werden, wie viele unterscheidbare Wörter in einem Text überbleiben, wenn dessen Wörter durch den HanTan oder SpaCy lemmatisiert wurden. Da jedoch die Anzahl an unterschiedlicher Wörter eines Textes auch mit der Länge des Textes zusammenhängt, soll zur besseren Darstellung verglichen werden, um wie viel Prozent die ursprünglichen unterscheidbaren Wörter des Text reduziert werden. Hat Text A also vor Lemmatisierung 10 unterscheidbare Wörter und danach 9, so wurden diese um 10\% reduziert. Abbildung \ref{fig:lemma_perf} zeigt diese Werte für unterschiedliche Textlängen. Als Textgrundlage wurde der Roman Steppenwolf von Hermann Hesse verwendet. Aus der Abbildung ist zu erkennen, dass die Bibliothek HanTa bessere Ergebnisse liefert als SpaCy. \\ \newline 
+Ein weiteres wichtiges Auswahlkriterium ist aufgrund der großen Menge der zu Verarbeitenden Daten die Performanz der Bibliothek. Diese wird in \ref{fig:lemma_perf} abgebildet. Aus der Abbildung lässt sich schließen, das die Bibliothek HanTa performanter ist als die zu Vergleichende. Da diese somit performanter ist und zudem bessere Ergebnisse liefert, soll diese für das Projekt verwendet werden.
 \begin{figure}
+	\centering
+	
+	\subfloat[Vergleich der Qualität]{%
+		\includegraphics[clip,width=0.5\linewidth]{images/lemma_disticnt_words_comparison.png}%
+		\label{fig:lemma_distinct}
+	}
+	\subfloat[Vergleich der Performanz]{%
+		\includegraphics[clip,width=0.5\linewidth]{images/lemma_time_comparison.png}%
+		\label{fig:lemma_perf}
+	}
+	\caption{Vergleich unterschiedlicher Bibliotheken zur Lemmatisierung}
+
+\end{figure}
+\section{Verifikation der Ähnlichkeitsanalyse}
+Die am Anfang des Kapitels getroffene Überlegungen legen nahe, dass Texte, welche sich mit dem gleichen Thema beschäftigen, eine ähnliche Auswahl von Wörtern verwenden. Genau dieses Phänomen soll hier in einer Stichprobe von vier Texten untersucht werden. Dazu soll der vorausgehend dargestellte Prozess verwendet werden.  
+\subsection{Vorgehen und Auswahl der Stichprobe}
+Bei diesen handelt es sich um Artikel der Tagesschau, drei zum Thema Klimawandel und einer zum Thema Nahostkonflikt. Konkret sind es die Artikel unter den Titeln "`Deutschland soll "`Klimafest"' werden"' \cite[]{tag_klima_klimafest}, "`Klimawandel bleibt größte Gefahr"' \cite[]{tag_klima_gefahr} und "`Wo der Klimawandel längst Realität ist"' \cite[]{tag_klima_realiteat} zum Thema Klimawandel und der Artikel "Die Gewalt nimmt nicht ab"' \cite[]{tag_nahost}, welcher sich mit dem Nahostkonflikt beschäftigt. \\ \newline
+Mithilfe der im \autoref{chap:berechnung_texteahnlichkeit} mathematischen Grundlage soll nun unter Verwendung der Kosinus-Ähnlichkeit die Ähnlichkeit der Texte zueinander in einer Matrix dargestellt werden. Um diese These zu beweisen, muss nun eine Methode entwickelt werden, um die Ähnlichkeit der Texte darzustellen. Dabei müssen sich die drei ersteren Texte, welche alle das Thema Klimawandel behandeln, untereinander Ähnlich sein. Zudem müssen sie zum vierten Text mit dem Thema Nahostkonflikt unterscheiden. \\ \newline
+Im nachfolgenden soll nun der Prozess dargestellt werden, mit welchem diese Unterscheidung realisiert wurde.
+\subsection{Auswertung der Ergebnisse}
+Die Tabellen in Abbildung \ref{fig:textvergleich} stellen das Ergebnis der nun besprochenen Methodik zur Unterscheidung von Texten dar. Jede Zelle der Tabelle stellt dar, wie Ähnlich sich Text A, welcher aus der Spalte entnommen werden kann und Text B, welcher durch die Zeile angegeben ist, sind. Mit jeder Tabelle ein Prozessschritt eingeführt. So werden in Tabelle (b) die Stoppwörter herausgefiltert, in Tabelle (c) wird zudem noch die Wortstandrückführung durchgeführt. Zur besseren Visualisierung wurden die Zellen abhängig vom Ähnlichkeitswert eingefärbt: Der höchste Wert wird grün gefärbt, werden der niedrigste Wert rot markiert wird. Die Farbwerte der restlichen Zellen werden über eine lineare Interpolation und additive Farbmischung bestimmt.\\ \newline
+Die vier Tabellen zeigen die Sinnhaftigkeit jedes Schrittes eindeutig auf: Während in der Tabelle ganz oben das Ergebnis noch alles andere als das gewünschte ist, werden die Texte in Tabelle (d) eindeutig nach Thema unterscheidbar. So sieht man, dass  in Tabelle (a)  der Text "`Wo der Klimawandel längst Realität ist"' dem Text "`Nahostkonflikt: Die Gewalt nimmt nicht ab"' mit einem Wert von 0.023 ähnlicher ist als dem Text "`Klimawandel bleibt größte Gefahr"' mit dem Wert 0.219. In Tabelle (d) werden die beiden Texte zum Thema Klimawandel deutlich von dem dritten Text unterschieden. 
+\begin{table}
 	\centering
 	\subfloat[Ohne Datenaufbereitung]{%
 		\includegraphics[clip,width=\linewidth]{images/tabelle_abstand_artikel_1.png}%
@@ -101,54 +112,79 @@ Die vier Tabellen zeigen die Sinnhaftigkeit jedes Schrittes eindeutig auf: Währ
 	}
 	\caption{Ähnlichkeitsmaße der einzelnen Artikel unter Verwendung der Kosinus-Ähnlichkeit}
 	\label{fig:textvergleich}
-\end{figure}
-\section{Vegleich von Kosinus-Ähnlichkeit zur euklidischen Distanz}
+\end{table}
+\subsection{Auswahl einer Distanzfunktion}
 Die in Abbildung \ref{fig:textvergleich} gezeigten Werte wurden alle mit der Kosinus-Ähnlichkeit berechnet. Durch den nun beschriebenen Schritte wurde beschrieben, wie für einzelnen Texte Merkmalsvektoren so berechnet werden können, dass sie von anderen Texten unterscheidbar sind. Für die vier Texte wurden jeweils Merkmalsvektoren berechnet werden. Nun soll unter der Verwendung dieser eine Distanzmatrix erstellt werden, einmal mithilfe der Kosinus-Ähnlichkeit und einmal mithilfe der der euklidischen Distanz. Das in Abbildung \ref{fig:calcvergleich} abgebildete Ergebnis zeigt eindeutig, dass die Kosinus-Ähnlichkeit besser differenzierbare Werte liefert als die euklidische Distanz. Somit soll im weiteren die Kosinus-Ähnlichkeit verwendet werden.
-\begin{figure}
+\begin{table}
 	\centering
 	
 	\subfloat[Distanzmatrix berechnet mit der Kosinus-Ähnlichkeit]{%
 		\includegraphics[clip,width=\linewidth]{images/tabelle_abstand_artikel_4.png}%
 	}
 	
-	\subfloat[Distanzmatrix berechnet mit der euklidischen Distanz]{%
+	\subfloat[Distanzmatrix berechnet mit der (normalisierten) euklidischen Distanz]{%
 		\includegraphics[clip,width=\linewidth]{images/tabelle_abstand_artikel_5.png}%
 	}
 	\caption{Differenzierbarkeit von Werten berechnet mithilfe der Kosinus-Ähnlichkeit im Vergleich zur euklidischen Distanz}
 	\label{fig:calcvergleich}
-\end{figure}
+\end{table}
 Nun muss der Prozess, der bei Tagesschauartikeln funktioniert auf die einzelnen Nutzer*innen angewendet werden. Ziel ist die Erstellung eines Merkmalsvektoren analog zu dem aus Formel \ref{eq:merkmalsvektoren}. 
 \section{Erstellung der Merkmalsvektoren für Nutzer*innen}
+\label{sec:merkmalsvektoren}
 Will man die Merkmalsvektoren der Nutzer*innen bestimmen, muss man zunächst die Schlüsselwörter aller Ihrer Texte zusammenführen, also alle Tweets, die von ihnen verfasst wurde. Die Schlüsselwörter werden anhand dem in den vorherigen Kapiteln beschriebenen Prozess aus dem Text extrahiert und um einen weiteren Filter ergänzt: Es werden nur Wörter in Betracht gezogen, welche als Hashtag markiert wurden. \\ \newline
 Pro Nutzer*innen wird also für jeden der von ihm verfassten Tweets die Häufigkeitsverteilung der Schlüsselwörter berechnet und dann in eine große Häufigkeitsverteilung pro Nutzer*innen zusammengefasst. Die beinhaltet nun, welche Schlüsselwörter der Nutzer*innen wie Häufig über den gesamten Datensatz hinweg verwendet hat. In einem weiteren Schritt wird nun berechnet, wie oft ein Schlüsselwort im gesamten Datensatz vorkommt. Um den Datensatz zu reduzieren und so auch Rauchpunkte zu entfernen, sollen nun Schlüsselwörter, welche nicht sehr häufig verwendet werden, herausgefiltert werden. Da die Tweets nach einen bestimmten Thema ausgesucht wurden, werden Schlüsselwörter die dieses beinhalten unverhältnismäßig häufig auftauchen, dadurch wird auch ein Schwellwert für eine obere Grenze benötigt. Als geignet erwies sich, nur Wörter zu verwenden, deren Häufigkeit zwischen dem 97\% und dem 99.98\% Quantil der Häufigkeiten aller Wörter lagen. Somit werden 98\% aller möglichen Schlüsselwörter nicht betrachtet. Für einen Datensatz von einem Monat entspricht dies 404,905 Wörtern. \\ \newline
-Weiterhin sollen für den einzelnen Nutzer*innen auch nur die Wörter verwendet werden, welche er häufig verwendet. Hierfür wird zunächst eine Liste gebildet, welche  für jeden Nutzer*innen und jedes Wort beinhaltet, wie häufig der Nutzer*innen dieses Wort verwendet hat. Als Schwellwert dient das 99\% Quantil dieser Liste verwendet, welches bei den Tweets eines Monats bei sechs liegt. Nutzer*innen, welche mit keinem ihrer Schlüsselwörter diesen Schwellwert erreichen, werden ausgefiltert. Durch beide Filterschritte zusammen fallen 99.5\% der Nutzer*innen aus dem Datensatz, was für einem Monat eine Zahl von 238.717 Nutzer*innen entspricht. Der gesamte Prozess ist in Abbildung \ref{fig:merkmalsvektoren} zusammengefasst.\\ \newline
+Weiterhin sollen für den einzelnen Nutzer*innen auch nur die Wörter verwendet werden, welche er häufig verwendet. Hierfür wird zunächst eine Liste gebildet, welche  für jeden Nutzer*innen und jedes Wort beinhaltet, wie häufig der Nutzer*innen dieses Wort verwendet hat. Als Schwellwert dient das 99\% Quantil dieser Liste verwendet, welches bei den Tweets eines Monats bei sechs liegt. Nutzer*innen, welche mit keinem ihrer Schlüsselwörter diesen Schwellwert erreichen, werden ausgefiltert. Durch beide Filterschritte zusammen fallen 99.5\% der Nutzer*innen aus dem Datensatz, was für einem Monat eine Zahl von 238.717 Nutzer*innen entspricht. Der gesamte Prozess ist in Abbildung \ref{fig:merkmalsvektoren} zusammengefasst.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{images/vergehen_merkmalsvektoren_nutzer}
-	\caption[]{Bestimmung der Merkmalsvektoren der Nutzer*innen}
+	\caption{Bestimmung der Merkmalsvektoren der Nutzer*innen}
 	\label{fig:merkmalsvektoren}
 \end{figure}
-\subsection{Clustering anhand der Merkmalsvektoren}
+\section{Clustering anhand der Merkmalsvektoren}
 Da nun für jede*n Nutzer*in ein Merkmausvektor bekannt ist, soll nun versucht werden, die Nutzer*innen anhand dieser in Kategorien einzuteilen. Der Prozess soll analog zum Clustering aus \cite{Godfrey.21.08.2014} erfolgen: Es soll zunächst durch mehrere Iterationen des $k$-Means Algorithmus eine Ähnlichkeitsmatrix gebildet werden, anschließend soll das Ergebnis mithilfe dieser und dem DB-SCAN Algorithmus zusammengefasst werden. 
-\subsubsection{Berechnung einer Ähnlichkeitsmatrix mithilfe des k-Means Algorithmus}
+\subsection{Berechnung einer Ähnlichkeitsmatrix mithilfe des k-Means Algorithmus}
 Der k-Means Algorithmus ist ein sehr bekannter Algorithmus, mit dem Ziel, n Merkmalsträger in k Cluster zu partitionieren, in denen jede Beobachtung zu dem Merkmalsträger mit dem nächstgelegenen Mittelwert (Clusterzentren oder Clusterschwerpunkt) gehört, der als Prototyp des Clusters dient. Allerdings birgt er auch Probleme: Dadurch, dass die Clusterzentren am Anfang zufällig gewählt werden kann der Algorithmus bei gleiche Eingabe einen ungleiches Ergebnis. Abbildung \ref{fig:kmeans} visualisiert dieses Verhalten. Zudem muss bei diesem Algorithmus die Anzahl an zu findenden Clustern vorgegeben werden. Dies kann insofern zu nicht optimalen Ergebnissen führen, da sich der Datensatz potentiell sinnvoller in eine Anzahl von Clustern unterteilen lässt, welche ungleich k ist. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{images/gutes_schlechtes_kmeans}
-	\caption[]{Gutes (links) und schlechtes (rechts) Ergebnis des k-Means Algorithmus unter gleichem Input}
+	\caption{Gutes (links) und schlechtes (rechts) Ergebnis des k-Means Algorithmus unter gleichem Input}
 	\label{fig:kmeans}
 \end{figure}
-Für jeden Lauf von k-means wird der Wert innerhalb der Matrix bei (Benutzer A, Benutzer B) und (Benutzer B, Benutzer A) um einen dieser Benutzer erhöht, der im selben Cluster in demselben Cluster landen. Daraus ergibt sich eine Matrix, anhand derer man für jeden Benutzer sagen kann, wie oft er mit einem anderen Benutzer geclustert wurde einem anderen Benutzer geclustert wurde und somit, wie ähnlich die Eigenschaften der die Benutzer sind.
-\subsubsection{Einteilung der Nutzer mit dem DB-SCAN Algorithmus}
-Durch die Verwendung der Ähnlichkeitsmatrix und die Anwendung des DB-SCAN
-Algorithmus können nun die Benutzer*innen nun in verschiedene Cluster eingeteilt werden.
-Darüber hinaus bietet dieser Algorithmus die Möglichkeit
-Benutzer, die sich nicht in einem ausreichenden Agglomerationszentrum befinden
-Zentrum liegen, als Rauschpunkte zu markieren, anstatt sie einem Cluster zuzuordnen.
-In diesem Fall hängt epsilon von der Anzahl der Iterationen mit
-k-means ab, da diese definiert, wie oft ein Benutzer maximal
-durch den k-means-Algorithmus geclustert werden kann. Epsilon wird gesetzt auf
-80 % dieses Wertes. Die Anzahl der minimalen Benutzer zur Bildung eines
-Cluster zu bilden, ist definiert durch die Anzahl der Benutzer im Datensatz
-mal 0,02.
-
+Für jeden Lauf von k-means wird der Wert innerhalb der Matrix bei (Benutzer*in A, Benutzer*in B) und (Benutzer*in B, Benutzer*in A) um einen dieser Benutzer*in erhöht, der im selben Cluster in demselben Cluster landen. Daraus ergibt sich eine Matrix, anhand derer man für jeden Benutzer*in sagen kann, wie oft er mit einem anderen Benutzer*in in ein Cluster gefasst wurde und somit, wie ähnlich die Eigenschaften der die Benutzer*in sind. Dieser Prozess ist in Abbildung \ref{fig:consensus_matrix}\cite{Godfrey.21.08.2014} noch einmal visualisiert.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{images/consensus_matrix}
+	\caption{Berechnung einer Ähnlichkeitsmatrix durch mehrere Iterationen von k-Means}
+	\label{fig:consensus_matrix}
+\end{figure}
+\subsection{Einteilung der Nutzer*innen mit dem DB-SCAN Algorithmus}
+Durch die Verwendung der Ähnlichkeitsmatrix und die Anwendung des DB-SCAN Algorithmus können nun die Benutzer*innen nun in verschiedene Cluster eingeteilt werden. Darüber hinaus bietet dieser Algorithmus die Möglichkeit Benutzer*innen, die sich nicht in einem ausreichend großen Agglomerationszentrum befinden, als Rauschpunkte zu markieren, anstatt sie einem Cluster zuzuordnen, vgl. Abbildung \ref{fig:dbscan}. In diesem Fall hängt Epsilon von der Anzahl der Iterationen des k-Means Algorithmus ab, da diese definiert, wie oft ein*e Benutzer*in maximal zusammen mit einem*r andere*n Nutzer*in bei einem Durchlauf von k-Means dem selben Cluster zugeordnet werden können. Gute Ergebnisse lieferten ein Epsilon von 80 \% dieses Wertes. Die Anzahl der minimalen Benutzer*innen zur Bildung eines Cluster zu bilden, ist definiert durch die Anzahl der Benutzer*innen im Datensatz mal 0,02. Diese Werte fallen für den Datensatz von einem Monat und dem Ausfiltern von Nutzer*innen nach \ref{sec:merkmalsvektoren} auf etwa 20, das Epsilon liegt für 15 Iterationen des k-Means Algorithmus entsprechend bei 12. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/db_scan_example}
+	\caption{Einteilung von Punkten in Cluster und Rauschen durch DB-SCAN}
+	\label{fig:dbscan}
+\end{figure}
+\section{Darstellung der Ergebnisse}
+Die Darstellung von hoch dimensionalen Daten ist insofern schwer zu realisieren, da eine Projizierung in einen mindestens dreidimensionalen Raum, besser in einen zweidimensionalen Raum stattfinden muss, welcher unweigerlich mit Informationsverlust verbunden ist. Hierzu wurden zwei Ansätze gewählt. \\ \newline\
+Ersterer ist unter dem Begriff \ac{MDS} bekannt: Dieser bezeichnet eine Familie von Verfahren, die hochdimensionale Daten anhand der Proximität zweier Datenpunkten auf einen zweidimensionalen Raum überführen soll, in dem für alle Punkte die Abstände im im hochdimensionale Raum deren im zweidimensionalen Raum im Verhältnis entsprechen \cite{Borg.2010}. Als Distanzfunktion kann hier jede beliebige Funktion genutzt werden, welche etwas über die Proximität zweier Datenpunkte aussagt, häufig verwendet wird die euklidische Distanzfunktion nach Formel \ref{eq:distance}. Dieses Methode hat sich allerdings nach einigen Experimenten mit reduzierten Datensätzen als nicht zielführend erwiesen, da die Verteilung im Vergleich zur nächsten Methode sehr zufällig gewirkt hat und Schwellwerte zur Reduzierung des Datensatzes nicht implementierbar waren. \\ \newline
+In einem nächsten Versuch wurde die Ähnlichkeitsmatrix aus den Iterationen des k-Means Algorithmus in einen Graph überführt. Hierbei entspricht jeder Knoten einem*r Nutzer*in. Aus den Werten der Matrix ergab sich die Gewichtung der einzelnen Kanten zwischen den Nutzern: Wurde Nutzer*in A und Nutzer*in B laut Matrix insgesamt 12 mal in einem Cluster zusammengefasst, so wurde zwischen den beiden eine Kante mit dem Gewicht 12 eingetragen. Um die Kanten zu reduzieren wurde ein Schwellwert definiert, wenn das Gewicht einer Kante unter diesem lag wurde sie entfernt. Der Graph wurde dann mithilfe der Software Gephi und dem Force Atlas Algorithmus gelayoutet. Pro Cluster des DB-SCAN Algorithmus wurde eine Farbe definiert, mit dem alle Knoten deren Nutzer*innen im entsprechenden Cluster zu finden waren eingefärbt wurden. Der Prozess der Überführung von Ähnlichkeitsmatrix zu Graph ist in Abbildung \ref{fig:consensus_matrix_to_graph} visualisiert. \\ \newline
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{images/consensus_matrix_to_graph}
+	\caption{Überführung der Ähnlichkeitsmatrix zu einem Graphen}
+	\label{fig:consensus_matrix_to_graph}
+\end{figure}
+Durch die große Datenmenge und die große  Anzahl an Kanten musste zum besseren Layouten des Graphen weitere Optimierungen vorgenommen werden. Bei genaueren Betrachtung der Ähnlichkeitsmatrix fiel auf, dass einige Zeilen der Matrix identisch waren, also einige Nutzer*in identisch häufig mit jedem anderen Nutzer*in in einem Cluster zusammengefasst wurden. Dieser Effekt ist auch in Abbildung \ref{fig:consensus_matrix} für die Datenpunkte 1 und 2 zu sehen, bei welchen sich die Zeilen entsprechen. Da diese in der Überführung zu einem Graphen zu identischen Knoten führt, können sie auch in einem Knoten zusammengefasst werden. Um graphisch darzustellen, dass ein Knoten mehr als eine Person repräsentiert, soll in der Darstellung der Flächeninhalt eines Knotens proportional zur Anzahl der durch in repräsentierten Personen sein. Der Radius für einen Knoten lässt sich somit aus Formel \ref{eq:radius_knoten} ableiten. Das Ergebnis des nun beschriebenen Prozesses ist als Abbildung \ref{fig:clusters_with_words}. Hier wurden die charakteristischen Schlüsselwörter einiger Cluster schon nach Kapitel \ref{sec:topics} als Wortwolken ergänzt.
+\begin{equation}
+	\begin{aligned} 
+		r&=\sqrt{n\cdot \pi } , n=\text{Anzahl der Personen}\\
+	\end{aligned} 
+	\label{eq:radius_knoten}
+\end{equation}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{images/clusters_with_words}
+	\caption{Visualisierung der Gruppierung von Nutzer*innen anhand der von ihnen verwendeten Wörter }
+	\label{fig:clusters_with_words}
+\end{figure}
