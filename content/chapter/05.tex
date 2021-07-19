@@ -1,7 +1,7 @@
 \chapter{Clustering Retweets}
 \markright{\thechapter \,\,\currentname \, - Philipp Kappus}
 \label{chap:cluster_retweets}
-Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann also zwischen diesen Beiden Nutzer*innen hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern*innen aufgebaut werden.
+Wie in Abschnitt \ref{sec:struktur-eines-tweets} beschrieben enthält ein \gls{Retweet} die Informationen des/der Nutzer*in der/die ihn veröffentlicht hat, sowie die Informationen des/der Nutzer*in der/die den Original-Tweet veröffentlicht hat. Eine Beziehung kann also zwischen diesen beiden Nutzer*innen hergestellt werden. Außerdem kann durch die Anzahl an \glspl{Retweet} der Beziehung eine Gewichtung zugeschrieben werden. Durch Analyse aller \glspl{Retweet} kann so ein Netz von Beziehungen zwischen Nutzern*innen aufgebaut werden.
 Werden in diesem Netz Nutzer*innen identifiziert, die sich häufig untereinander \glspl{retweetet} so können diese einer Gruppe zugeordnet werden. Im Folgenden soll der Prozess solche Gruppen zu finden, dargestellt und die Ergebnisse präsentiert werden.
 
 \section{Daten vorbereiten}
@@ -70,9 +70,9 @@ wobei $x$ der Rang, $m$ die Steigung und $b$ der Skalierungsfaktor oder die Anza
 	\caption{Verteilung der Anzahl an \glspl{Retweet} (blau) und das inverse Potenzgesetz (orange)}
 	\label{fig:tweetverteilung}
 \end{figure}
-Daraus wurde der Schluss gezogen, dass Beziehungen zwischen "`kleineren"' Nutzer*innen vernachlässigbar sind und nur Verbindungen zu den 100 meist \glspl{geretweetet} Nutzer*innen von Bedeutung sind. Diese werden im Folgenden "`Influencer"' genannt. Auch kann davon ausgegangen werden, dass Beziehung zwischen "`kleineren Nutzern"'  repräsentiert sind, da zwei Nutzer*innen die sich gegenseitig \glspl{retweetet}, wahrscheinlich auch eine Beziehung zur gleichen Influencer haben. 
+Daraus wurde der Schluss gezogen, dass Beziehungen zwischen "`kleineren"' Nutzer*innen vernachlässigbar sind und nur Verbindungen zu den 100 meist \glspl{geretweetet} Nutzer*innen von Bedeutung sind. Diese werden im Folgenden "`Influencer"' genannt. Auch kann davon ausgegangen werden, dass Beziehung zwischen "`kleineren"' Nutzern*innen  repräsentiert sind, da zwei Nutzer*innen die sich gegenseitig \glspl{retweetet}, wahrscheinlich auch eine Beziehung zum gleichen Influencer haben. 
 Diese Methodik vermindert die Anzahl an Verbindungen und führt zu einer effizienteren Verarbeitung der Daten sowie später zu einem übersichtlicheren Graphen (siehe Abschnitt \ref{sec:aggregieren})
-Die Anzahl an Influencern ist wählbar und führt zu verschiedenen Ergebnisse, allerdings hat sich 100 als ein passender Parameter herausgestellt. Dieser Sachverhalt wird in Abschnitt näher diskutiert.
+Die Anzahl an Influencern ist wählbar und führt zu verschiedenen Ergebnisse, allerdings hat sich 100 als ein passender Parameter herausgestellt. 
 
 \section{Nutzergruppen aggregieren}
 \label{sec:aggregieren}
@@ -88,8 +88,8 @@ Dieser Graph kann visualisiert werden. Genutzt wurde dafür \gls{Python3}, \gls{
 \end{figure}
 
 Abbildung \ref{fig:graphnoaggregation} zeigt einen solchen Graph mit Daten aus 4 Tagen, den drei Influencern in blau (Karl\_Lauterbach, reitschuster, Volksverpetzer) und allen Nutzer*innen die diese \gls{geretweetet} haben in schwarz. Die Berechnung dieses Layout braucht auf einen handelsüblichen PC mit Linux 35,6 Sekunden. 
-Mit Daten von mehr als 4 Tagen oder mit mehr als 3 Influencern explodiert die Berechnungszeit. 
-Offensichtlich erkennbar ist, dass es  für jede Influencer eine Menge an Nutzer*innen $N_{i^x}$ gibt, die nur diese Influencer \gls{geretweetet} haben.
+Mit Daten von mehr als 4 Tagen oder mit mehr als 3 Influencern explodiert die Berechnungszeit. \\
+Offensichtlich erkennbar ist jedoch, dass es  für jede Influencer eine Menge an Nutzer*innen $N_{i^x}$ gibt, die nur diese Influencer \gls{geretweetet} haben.
 Analog dazu gibt es eine Menge an Nutzer*innen $N_{i^1i^2}$ die sowohl Influencer $i^1$ und Influencer $i^2$ retweeten. 
 Diese Mengen können als "`Superknoten"' betrachtet werden, der alle Nutzer*innen repräsentiert, die z.B. sowohl $i^1$ als auch $i^2$ \gls{geretweetet} haben.
 Es gilt also für einen Superknoten $s$:
@@ -110,32 +110,25 @@ Knoten beschränken (mit $|S|$ der Menge aller möglichen Superknoten).
 \end{figure}
 Abbildung \ref{fig:graphnothreshold} zeigt den selben Graph wie \ref{fig:graphnoaggregation} mit zu Superknoten aggregierten Nutzern.
 Die Berechnung des Layout konnte dadurch auf 0.16 Sekunden reduziert werden.
-Auch dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n)$ mit $n$ = Gesamtanzahl an Nutzern. 
+Auch dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n)$ mit $n$ = Gesamtanzahl an Nutzern. \pagebreak
 \section{Kanten filtern}
 \label{sec:kanten-filtern}
-Wie in Formel 5.2 und Abbildung \ref{fig:superknotenentwicklung} zu sehen, steigt die Anzahl an möglichen Superknoten expotentiell mit steigender Zahl an Influencern.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/Superknotenentwicklung}
-	\caption{Entwicklung der möglichen Superknoten mit der Anzahl an Influencern}
-	\label{fig:superknotenentwicklung}
-\end{figure}
+Wie in Formel 5.2 zu sehen, steigt die Anzahl an möglichen Superknoten expotentiell mit steigender Zahl an Influencern.
 Bei $|I| = 100$ könnten bis zu $1.26*10^{30}$ Superknoten existieren. Das ist für jegliche Berechnung oder Darstellung unpraktikabel.
-Deshalb wird auch hier eine Komplexitätsverringerung durch Filtern unrelevanter Information vorgenommen indem alle Kanten von einem Superknoten zu einer Influencer gelöscht werden, die unter einem Schwellwert liegen. 
+Deshalb wird auch hier eine Komplexitätsverringerung durch Filtern unrelevanter Information vorgenommen, indem alle Kanten von einem Superknoten zu einem Influencer gelöscht werden, die unter einem Schwellwert liegen. 
 Es wird davon ausgegangen, dass  bei einem niedrigen Kantengewicht die Nutzer*innen nur eine schwache Beziehung zu dem entsprechenden Influencer haben und diese damit für eine spätere Gruppierung irrelavant ist. 
-Wie dieser Schwellenwert festgelegt wird, wird in Abschnitt \ref{sec:clutering} diskutiert. 
 Es gilt also mit dem Schwellwert $T$: \begin{equation}
 	E_{gefiltert} = \{(s,i,g)\in E|g>T\}
 \end{equation}
 
 Wurde eine Kante (z.B. $(s,i^3)$) von einem Superknoten $s_{i^1i^2i^3}$ gelöscht, so ändert sich dieser zu $s_{i^1i^2}$. Nun ist es allerdings möglich, dass der Knoten $s_{i^1i^2}$ bereits existiert, was zu einer Verdopplung der eigentlich gleichen Kante führt. Dies kann vermieden werden indem nach dem Löschen einer Kante überprüft wird ob der so enstandene Superknoten bereits existiert. Falls ja, werden diese zusammengeführt indem die jeweiligen Kantengewichte addiert werden.
-Des Weiteren werden diejenigen Superknoten gelöscht, die Nutzer repräsentierten, die nur eine Influencer \gls{geretweetet} haben, da sie für eine Eingruppierung anhand von Beziehung keine Relevanz haben.
+Des Weiteren werden diejenigen Superknoten gelöscht, die Nutzer repräsentierten, die nur einen Influencer \gls{geretweetet} haben, da sie für eine Eingruppierung anhand von Beziehung keine Relevanz haben.\\
 Dieser Prozess besitzt eine Komplexität von $\mathcal{O}(n^2)$ mit $n$ = Gesamtanzahl der Superknoten, da im schlechtesten Fall für jeden veränderten Knoten, dieser mit alle bereits bestehenden Knoten auf Gleichheit überprüft werden muss.
 \section{Kantengewichte normalisieren}
 Wie in Abschnitt \ref{sec:influencer} beschrieben folgt die Verteilung der Retweets auf die Influencer einem inversen Potenzgesetz.
 Der Natur eines inversen Potenzgesetzes folgend, haben die niedrigen Ränge eine deutlich höhere Anzahl von Retweets, was es schwierig macht, einen Schwellenwert zu finden, der einerseits die Komplexität in Bezug auf Verbindungen mit dem niedrigrangigen Influencer minimiert, aber trotzdem Gruppen erhält, die aus höherrangigen Influencern bestehen.
-Um diesem Problem entgegenzuwirken, werden Kantengewichte von Einflussfaktoren mit dem Zehner logarithmus des Rangs des jeweiligen Influencers multipliziert, bevor der Schwellenwert angewendet wird.
-Dies normalisiert die Retweets nicht vollständig, da ansonsten Retweets von höherrangigen Influencern überbewerten würden.
+Um diesem Problem entgegenzuwirken, werden die Kantengewichte mit dem Zehnerlogarithmus des Rangs des jeweiligen Influencers multipliziert, bevor der Schwellenwert angewendet wird.
+Dies normalisiert die Retweets nicht vollständig, da ansonsten \glspl{Retweet} von höherrangigen Influencern überbewerten würden.
 Trotzdem verringert es die Dominanz von niederrangigen Influencern.
 \begin{figure}[h!]
 	\centering
@@ -143,9 +136,10 @@ Trotzdem verringert es die Dominanz von niederrangigen Influencern.
 	\caption{The distribution of retweets (blue) and the power-law from equation 4(orange)}
 	\label{fig:power-law}
 \end{figure}
+\pagebreak
 \section{Clustering}
 \label{sec:clutering}
-Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (2,955,282 Tweets, 260,954 Nutzer), 100 Influencern und einem Schwellenwert von 61 ist in Abbildung \ref{fig:noclusters} zu sehen und wurde innerhalb von 2 Stunden und 58 Minuten berechnet. 
+Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (2,955,282 Tweets, 260,954 Nutzer), 100 Influencern und einem Schwellenwert von 61 ist in Abbildung \ref{fig:noclusters} zu sehen und wurde innerhalb von 2 Stunden und 58 Minuten berechnet. \newline
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth]{images/NoClusters}
@@ -153,7 +147,7 @@ Das Ergebnis aller bisherigen Prozessschritte mit den Daten von März 2021 (2,95
 	\label{fig:noclusters}
 \end{figure}
 Als Mensch kann man ein  großes zentrales \gls{Cluster}, eins das mit diesem verbunden ist (unten) und ein seperates \gls{Cluster} (oben links) erkennen. 
-Im Folgenden wird dargelegt, wie diese \gls{Cluster} automatisch erkannt werden.
+Im Folgenden wird dargelegt, wie diese \gls{Cluster} automatisch erkannt werden.\\
 Zu einem \gls{Cluster} können in diesem Kontext alle Knoten gezählt werden, die dicht miteinander verbunden ist; das heißt sie stehen über einige weitere Knoten in Beziehnung.
 Da eine Anzahl an \gls{Cluster} vorher nicht festgelegt werden kann und es kein geometrischen Raum gibt (nur die Verbindungen zählen, die Positionen der Punkte irrelevant) wurde sich hier für eine abgewandelte Form des DBSCAN - Algorithmus entschieden (siehe \cite{dbscan}).
 Als Knoten werden nur Influencern betrachtet da die Superknoten nur die Verbindung zu weiteren Influencern darstellen. 
@@ -165,7 +159,7 @@ Die Nachbar eines Influencer sind alle Influencern die mit dem Ausgangsinfluence
 	\label{fig:dbscan-neighbours}
 \end{figure}
 Eine Mindestdistanz $\epsilon$ wird nicht benötigt, da alle Verbindungen die dadurch nicht gezählt würden, bereits durch den in Abschnitt \ref{sec:kanten-filtern} definierten Schwellwert aussortiert wurden.
-Da mit diesem Ansatz jede Verbindung zu eines weiteren Influencer als Nachbar in den DBSCAN eingeht, werden \gls{Cluster} die nur leicht verbunden sind (wie in Abbildung \ref{fig:noclusters} das Zentrale und das unten Positionierte) als ein \gls{Cluster} definiert. 
+Da mit diesem Ansatz jede Verbindung zu einem weiteren Influencer als Nachbar in den DBSCAN eingeht, werden \gls{Cluster} die nur leicht verbunden sind (wie in Abbildung \ref{fig:noclusters} das Zentrale und das unten Positionierte) als ein \gls{Cluster} definiert. 
 Um hier eine Trennung zu schaffen, werden nur Knoten als Nachbarn gezählt die noch nicht dem aktuellen \gls{Cluster} zugeordnet wurden wie in Listing \ref{lst:neighborfunction}.
 \begin{lstlisting}[language=Python,caption={Abwandlung der DBSCAN Nachbarfunktion},label={lst:neighborfunction}]
 	def getNeighbors(node):
@@ -181,7 +175,7 @@ Um hier eine Trennung zu schaffen, werden nur Knoten als Nachbarn gezählt die n
 		return all_neighbors
 \end{lstlisting}
 Die Mindestanzahl an Nachbar damit ein Knoten zum Kernknoten wird, ist wählbar, allerdings hat sich ein Wert von 2 bewährt. Diese Wahl wird in Abschnitt diskutiert.
-Auf den oben vorgestellten Datensatz angewendet, braucht das Berechnen der \gls{Cluster} 2,3 Minuten und liefert das in Abbildung \ref{fig:clustersscreenshot} dargestellte Ergebnis.
+Auf den oben vorgestellten Datensatz angewendet, braucht das Berechnen der \gls{Cluster} 2,3 Minuten und liefert das in Abbildung \ref{fig:clustersscreenshot} dargestellte Ergebnis (in größerer Form im Anhang).
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth]{images/Clusters_screenshot}
@@ -200,6 +194,7 @@ Ein Blick in das obere rechte, orangefarbene Cluster:
 Um nun nicht nur die Influencer eines Cluster sondern auch die Nutzer*innen, die diese geretweetet haben zu indetifizieren, wurde der Prozessschritt des Aggregierens (Abschnitt \ref{sec:aggregieren}) erweitern, sodass für jeden Supernutzer gespeichert wird, welche Nutzer ihn ausmachen.
 Wurden nun die Cluster erstellt, können diesem Cluster auch alle Supernutzer zugeordnet werden, die mindestens eine Verbindungen zu einem Influencer aus diesem Cluster besitzen.
 Aus den zugehörigen Supernutzer können nun auch alle "`normalen"' Nutzer*innen des Cluster extrahiert werden.
+\markright{\thechapter \,\,\currentname \, - Paul Groß}
 \section{Bestimmung der Themen innerhalb der Cluster}
 \label{sec:topics}
 Während in Kapitel \ref{sec:einblick} die Cluster anhand einzelne Individuen analysiert und damit in einen thematischen Zusammenhang gebracht wurden, soll im folgenden Anhand einer Wortanalyse das Thema innerhalb der Cluster bestimmt werden.
